@@ -1,0 +1,40 @@
+{
+  "songs" : [
+    {
+      "id" : 1,
+      "title" : "Claire de lune",
+      "author" : "Claude Debussy",
+      "mp3" : "CLAUDE DEBUSSY-  CLAIRE DE LUNE.mp3"
+    },
+    {
+      "id" : 2,
+      "title" : "Roundabout",
+      "author" : "Yes",
+      "mp3" : "Yes - Roundabout.mp3"
+    },
+    {
+      "id" : 3,
+      "title" : "Private Investigations",
+      "author" : "Dire Straits",
+      "mp3" : "Dire Straits - Private Investigations.mp3"
+    },
+    {
+      "id" : 4,
+      "title" : "Music",
+      "author" : "John Miles",
+      "mp3" : "John Miles - Music.mp3"
+    },
+    {
+      "id" : 5,
+      "title" : "Somewhere only we know",
+      "author" : "Keane",
+      "mp3" : "Keane - Somewhere Only We Know.mp3"
+    },
+    {
+      "id" : 6,
+      "title" : "Stairway to heaven",
+      "author" : "Led Zeppelin",
+      "mp3" : "Led Zeppelin - Stairway to Heaven .mp3"
+    }
+  ]
+}

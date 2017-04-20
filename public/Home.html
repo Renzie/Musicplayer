@@ -1,0 +1,75 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MusicPlayer</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/screen.css">
+    <link rel="stylesheet" href="themes/MusicPlayer.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="icons/icon-pack-custom.css"/>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+<div data-role="page" data-theme="a">
+    <header data-tap-toggle="false" data-role="header" data-theme="d" data-position="fixed">
+        <h1 id="songname" align="center">No song selected</h1>
+        <section class="ui-bar-c">
+            <h2 align="center" data-theme="c">Playlist 1</h2>
+        </section>
+
+    </header>
+
+
+    <div id="playlist" data-role="main" data-theme="c" data-position="relative">
+        <h1>test</h1>
+
+
+
+        <!--<nav data-role="navbar">
+            <ul>
+                <li><a href="#" data-icon="bullets">My playlists</a> </li>
+                <li><a href="#" data-icon="search">Search</a></li>
+                <li><a href="#" data-icon="gear">Settings</a></li>
+            </ul>
+        </nav>-->
+    </div>
+
+    <div data-role="main" data-theme="c" data-position="relative">derp</div>
+
+    <footer data-tap-toggle="false" data-role="footer" data-theme="c" data-position="fixed">
+        <section id="songsetup" data-position="fixed">
+            <!-- hier moet play / pause / skip / previous staan -->
+            <a href="#" class="step-backward ui-nodisc-icon ui-btn ui-btn-icon-notext " ></a>
+            <button class="ytp-play-button ytp-button" aria-live="assertive" tabindex="32" aria-label="Pause">
+                <svg width="70%" height="10%" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs>
+                        <path id="ytp-12" d="M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28">
+                            <animate class="animation" begin="indefinite" attributeType="XML" attributeName="d" fill="freeze" to="M11,10 L17,10 17,26 11,26 M20,10 L26,10 26,26 20,26" from="M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28" dur="0.1s" keySplines=".4 0 1 1"
+                                     repeatCount="1"></animate>
+                        </path>
+                    </defs>
+                    <use xlink:href="#ytp-12" class="ytp-svg-shadow"></use>
+                    <use xlink:href="#ytp-12" class="ytp-svg-fill"></use>
+                </svg>
+            </button>
+
+            <a href="#"  class="step-forward ui-nodisc-icon ui-btn ui-btn-icon-notext" ></a>
+        </section>
+
+        <nav data-role="navbar"  >
+            <ul>
+                <li><a href="#" data-icon="bullets">My playlists</a></li>
+                <li><a href="#" class="home" data-icon="Home">Home</a> </li>
+                <li><a href="#" data-icon="gear">Settings</a></li>
+            </ul>
+
+        </nav>
+
+    </footer>
+</div>
+<script type="text/javascript" src="assets/js/script.js"></script>
+</body>
+</html>

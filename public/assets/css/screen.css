@@ -1,0 +1,57 @@
+#playlist{
+    text-align: center;
+}
+
+footer{
+    position : fixed !important;
+}
+#songname {
+    margin: 0;
+}
+
+#songsetup a {
+
+    margin-left: auto;
+    margin-right: auto;
+    background: transparent no-repeat;
+    background-size: contain;
+    -webkit-filter: brightness(0) invert(1);
+    border:none;
+}
+
+#songsetup button {
+    width: 30%;
+    background: transparent;
+    border:none
+}
+
+.ytp-play-button {
+    fill: #fff;
+    opacity: 1;
+}
+
+.ytp-play-button:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+#songsetup #play{
+    background-image: url(../../images/play.png);
+}
+
+
+#songsetup #pause{
+    background-image: url(../../images/pause.png);
+}
+
+#songsetup .step-backward{
+    margin-left: 26.5%;
+    background-image: url(../../images/step-backward.png);
+}
+
+#songsetup .step-forward{
+    background-image: url(../../images/step-forward.png);
+    margin-left: 4%;
+
+
+}
