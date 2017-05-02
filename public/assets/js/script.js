@@ -92,7 +92,7 @@ var audioPlayer = {
         console.log(currentSong);
         audio.src = '../songlist/' + currentSong.mp3;
     },
-    playSong: function () { // speel de current song af, indien er nog geen song afgespeelt is speel je de eerste song
+    playSong: function () { // speel de current song af, indien er nog geen song afgespeeld is speel je de eerste song
         audio.play();
         playlistUI.resumeOrPause();
         playlistUI.updateSongTitle();
@@ -153,6 +153,54 @@ Notification.buildFragment()
     }
 };
 
+function  getID(user, password){
+
+    var users = $.get("/user");
+    var pw = require('node_modules/password-hash/lib');
+    var hashed = pw.generate(password);
+    for (var i = 0;i < users.length; i++){
+        if(users.nickname === user && users.password === hashed){
+            return users.id;
+        }
+    }
+}
+
+function getSongsUser(userId){
+
+}
+function addUser(){
+    var User = {
+        "id" : "",
+        "name": "",
+        "email": "",
+        "nickname": "",
+        "password" : "",
+        "songs" :
+            {
+                /*
+                "id" : "",
+                "title": "",
+                "author": "",
+                "mp3":"",
+                "cover":""*/
+            },
+        "records" :
+            {
+                /*"id" : "",
+                "title": "",
+                "mp3":""*/
+            },
+        "playlists" :
+            {
+                /*"id": "",
+                "name": "",
+                "songs" :
+                    {
+                        "id" : ""
+                    }*/
+            }
+    }
+}
 
 var Song = function (id, title, author, mp3) {
     this.id = id;
