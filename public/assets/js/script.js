@@ -166,7 +166,42 @@ function  getID(user, password){
 }
 
 function getSongsUser(userId){
+    var users = $.get("/user");
+    var songs = [];
+    for (var i = 0; i < users.length; i++){
+        if (users.id === userId){
+            for(var j = 0; j < users[i].songs; j++){
+                songs.push(users[i].songs[j]);
+            }
+        }
+    }
+    return songs;
+}
 
+function getRecordsUser(userId){
+    var users = $.get("/user");
+    var records = [];
+    for (var i = 0; i < users.length; i++){
+        if (users.id === userId){
+            for(var j = 0; j < users[i].records; j++){
+                records.push(users[i].records[j]);
+            }
+        }
+    }
+    return records;
+}
+
+function getPlaylistsUser(userId){
+    var users = $.get("/user");
+    var playlists = [];
+    for (var i = 0; i < users.length; i++){
+        if (users.id === userId){
+            for(var j = 0; j < users[i].playlists; j++){
+                playlists.push(users[i].playlists[j]);
+            }
+        }
+    }
+    return playlists;
 }
 function addUser(){
     var User = {
