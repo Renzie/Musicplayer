@@ -5,6 +5,13 @@
 var getSongs = $.get("/songs");
 
 
+var getSCSongs = $.get('https://api.soundcloud.com/connect');
+console.log(getSCSongs)
+
+var notification;
+
+
+
 
 var serviceWorker = null;
 var APP_SERVER_KEY = "BMhLjpE_7Q48ufHZimrPOUEPRtzpN4Y9qL50WGP9WI4o67jgb22AyulGZEKrh3ljU_ePuYQY0BzCCNt2JC2G7yI";
@@ -14,7 +21,10 @@ var APP_SERVER_KEY = "BMhLjpE_7Q48ufHZimrPOUEPRtzpN4Y9qL50WGP9WI4o67jgb22AyulGZE
 var currentSong;
 var audio = new Audio();
 audio.addEventListener("ended",function () {
-    audioPlayer.nextSong();
+    if (audioPlayer.autoplay){
+        audioPlayer.nextSong();
+    }
+
 })
 
 var urlB64ToUint8Array = function(base64String) // voor pushnotification
@@ -72,6 +82,11 @@ var audioPlayer = {
         });
         $(".playsong").on("click",audioPlayer.selectSong)
     },
+
+    setAutoplay : function () {
+        audioPlayer.autoplay = !audioPlayer.autoplay;
+        console.log(audioPlayer.autoplay);
+    },
     setSong: function (id) {
         currentSong = audioPlayer.playlist.songs[id - 1];//id van de song
         console.log(currentSong);
@@ -81,6 +96,18 @@ var audioPlayer = {
         audio.play();
         playlistUI.resumeOrPause();
         playlistUI.updateSongTitle();
+
+        if (!("Notification" in window)) {
+            $("header section h1").removeClass('hide')
+        }
+        Notification.requestPermission(function () {
+            notification = new Notification(currentSong.title, {
+                body: currentSong.author,
+                icon: "../../images/covers/defaultcover.jpg"
+            })
+        })
+
+Notification.buildFragment()
 
     },
     playFirstSong : function () {
@@ -142,6 +169,7 @@ var playlistUI = {
         $(".step-backward").on('click', audioPlayer.previousSong);
         $(".home").on("click", playlistUI.gotoHomePage);
         $("[data-role='listview'] ").on('click','.song',audioPlayer.selectSong);
+        $(".autoplay").on('click',audioPlayer.setAutoplay);
     },
     gotoHomePage :  function () {
         //$.mobile.pageContainer = $("[data-role='main']").pagecontainer();

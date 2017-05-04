@@ -40,7 +40,9 @@ footer{
 
     background-image: url(../../images/icons/play.png);
 }
-
+.hide{
+    display: none;
+}
 
 #songsetup #pause{
     background-image: url(../../images/icons/pause.png);
