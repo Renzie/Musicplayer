@@ -54,6 +54,7 @@ var registerServiceWorker = function () { //voor pushnotification
 
 
 var audioPlayer = {
+    autoplay: true,
     self: this,
     playlist: {
         songs: [],
@@ -66,9 +67,9 @@ var audioPlayer = {
                 audioPlayer.playlist.songs.push(new Song(data[i].id, data[i].title, data[i].author, data[i].mp3));
             }
             playlistUI.fillPlaylistUI(audioPlayer.playlist.songs);
-        }), function (xhrObj) {
+        }, function (xhrObj) {
             console.log(xhrObj);
-        }
+        });
         $(".playsong").on("click",audioPlayer.selectSong)
     },
     setSong: function (id) {

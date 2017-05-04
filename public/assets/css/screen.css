@@ -10,7 +10,7 @@ footer{
 }
 
 #songsetup a {
-
+    width: 5vw;
     margin-left: auto;
     margin-right: auto;
     background: transparent no-repeat;
@@ -20,12 +20,13 @@ footer{
 }
 
 #songsetup button {
-    width: 30%;
+    width: 30vw;
     background: transparent;
     border:none
 }
 
 .ytp-play-button {
+
     fill: #fff;
     opacity: 1;
 }
@@ -36,22 +37,35 @@ footer{
 }
 
 #songsetup #play{
-    background-image: url(../../images/play.png);
+
+    background-image: url(../../images/icons/play.png);
 }
 
 
 #songsetup #pause{
-    background-image: url(../../images/pause.png);
+    background-image: url(../../images/icons/pause.png);
 }
 
 #songsetup .step-backward{
-    margin-left: 26.5%;
-    background-image: url(../../images/step-backward.png);
+    margin-right: 4vw;
+    margin-left: 9vw;
+    background-image: url(../../images/icons/step-backward.png);
 }
 
 #songsetup .step-forward{
-    background-image: url(../../images/step-forward.png);
-    margin-left: 4%;
 
+    background-image: url(../../images/icons/step-forward.png);
+    margin-left: 3vw;
+}
 
+#songsetup .autoplay{
+    width: 7vw;
+    background-image: url(../../images/icons/refresh.png);
+    margin-left: 7.5vw;
+}
+
+#songsetup .shuffle{
+    width: 8vw;
+    background-image: url(../../images/icons/random.png);
+    margin-left: 5vw;
 }
