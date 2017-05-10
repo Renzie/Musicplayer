@@ -1,34 +1,68 @@
 /**
  * Created by Renzie on 16/02/2016.
  */
+/*  TODO : - API IMPLEMENTATION
+           - PUSH NOTIFICATIONS
+           - MATTHIAS ZEN STUK VAN CCCP
+           - MANIFEST
+           - DEFTIGE CODE (NON-EXISTENT IN ONS WOORDENBOEK) AKA PROMISES, FETCH, SERVICE WORKERS, ...
+           - REST VAN DE UI AFWERKEN
+           - ....
+
+    DONE : - MUZIEKSPELER (PLAY - PAUSE, NEXTSONG, SONG ON CLICK, )
+
+ */
+
 'use strict';
-var getSongs = $.get("/songs");
+
+/* API GETTERS */
+//var pm = require('playmusic');
+
+/*window.onload = function () {
+    var player = new Audio('https://www.youtube.com/watch?v=Qe500eIK1oA&list=RDMMQe500eIK1oA')
+    player.preload = 'metadata'
+    player.play()
+    player.controls = true
+    document.body.appendChild(player)
+}*/
+
+var getSongs =  function (playlistid) {
+   Promise.resolve($.get("playlists/" + playlistid));
+};
+var playlistURL = $.get("playlists");
+var promisePlaylist = Promise.resolve(playlistURL);
+
+/*function loadSoundCloud(url) {
+    return new Promise(function (resolve, reject) {
+        var request = new XMLHttpRequest();
+        request.open('GET', url);
+        request.responseType = 'blob';
+
+        request.onload = function () {
+            if (request.status === 200){
+                resolve(request.response);
+            } else {
+                reject(Error('Unable to load SoundCloud; error code: ' + request.statusText))
+            }
+        }
+
+        request.onerror = function () {
+            reject(Error('There was a network error.'))
+        }
+
+        request.send();
+    })
+}*/
 
 
-var getSCSongs = $.get('https://api.soundcloud.com/connect');
-console.log(getSCSongs)
-
+/* PUSH NOTIFICATION */  //TODO
 var notification;
-
-
-
-
 var serviceWorker = null;
 var APP_SERVER_KEY = "BMhLjpE_7Q48ufHZimrPOUEPRtzpN4Y9qL50WGP9WI4o67jgb22AyulGZEKrh3ljU_ePuYQY0BzCCNt2JC2G7yI";
 
 
-//currentsong is een Song object die de song bijhoudt dat afgespeeld wordt.
-var currentSong;
-var audio = new Audio();
-audio.addEventListener("ended",function () {
-    if (audioPlayer.autoplay){
-        audioPlayer.nextSong();
-    }
 
-})
-
-var urlB64ToUint8Array = function(base64String) // voor pushnotification
-{
+var urlB64ToUint8Array = function(base64String) {
     var padding = '='.repeat((4 - base64String.length % 4) % 4);
     var base64 = (base64String + padding)
         .replace(/\-/g, '+')
@@ -44,7 +78,7 @@ var urlB64ToUint8Array = function(base64String) // voor pushnotification
     return outputArray;
 };
 
-var registerServiceWorker = function () { //voor pushnotification
+/*var registerServiceWorker = function () { //voor pushnotification
     if ('serviceWorker' in navigator && 'PushManager' in window){
         console.log('Service worker and push is supported');
 
@@ -60,9 +94,36 @@ var registerServiceWorker = function () { //voor pushnotification
     } else {
         console.warn('Push messaging is not supported');
     }
+};*/
+
+
+
+
+/* AUDIOPLAYER SETTINGS */ //DONE
+var currentSong;
+var currentPlaylist;
+var audio = new Audio();
+audio.addEventListener("ended",function () {
+    if (audioPlayer.autoplay){
+        audioPlayer.nextSong();
+    }
+}); // dit zorgt voor de autoplay
+
+var Song = function (id, title, author, mp3) {
+    this.id = id;
+    this.title = title;
+    this.author = author;
+    this.mp3 = mp3;
+};
+
+var Playlist = function (id, name) {
+    this.id = id;
+    this.name = name;
+    this.songs = [];
 };
 
 
+/* BACK-END AUDIO */
 var audioPlayer = {
     autoplay: true,
     self: this,
@@ -70,13 +131,12 @@ var audioPlayer = {
         songs: [],
         offline: false
     },
-
-    loadSongs: function () {
-        getSongs.then(function (data) {
-            for (var i = 0; i < data.length; i++) {
-                audioPlayer.playlist.songs.push(new Song(data[i].id, data[i].title, data[i].author, data[i].mp3));
+    loadSongs: function (playlistid) {
+        getSongs(playlistid).then(function (data) {
+            for (var i = 0; i < data.songs.length; i++) {
+                audioPlayer.playlist.songs.push(new Song(data.songs[i].id, data.songs[i].title, data.songs[i].author, data.songs[i].mp3));
             }
-            playlistUI.fillPlaylistUI(audioPlayer.playlist.songs);
+           audioplayerUI.fillPlaylistUI(audioPlayer.playlist.songs);
         }, function (xhrObj) {
             console.log(xhrObj);
         });
@@ -94,8 +154,8 @@ var audioPlayer = {
     },
     playSong: function () { // speel de current song af, indien er nog geen song afgespeelt is speel je de eerste song
         audio.play();
-        playlistUI.resumeOrPause();
-        playlistUI.updateSongTitle();
+        audioplayerUI.resumeOrPause();
+        audioplayerUI.updateSongTitle();
 
         if (!("Notification" in window)) {
             $("header section h1").removeClass('hide')
@@ -105,10 +165,8 @@ var audioPlayer = {
                 body: currentSong.author,
                 icon: "../../images/covers/defaultcover.jpg"
             })
-        })
-
-Notification.buildFragment()
-
+        });
+        Notification.buildFragment()
     },
     playFirstSong : function () {
         audioPlayer.setSong(1) ;
@@ -116,7 +174,7 @@ Notification.buildFragment()
     },
     pauseSong : function () {
         audio.pause();
-        playlistUI.resumeOrPause();
+        audioplayerUI.resumeOrPause();
     },
     resumeSong: function () {
         if (audio.src == ""){
@@ -127,7 +185,6 @@ Notification.buildFragment()
         } else {
             audioPlayer.pauseSong();
         }
-        console.log("paused");
     },
     nextSong: function () {
         if (currentSong == undefined) {
@@ -150,35 +207,20 @@ Notification.buildFragment()
         var songId = $(this).attr("data-id");
         audioPlayer.setSong(songId);
         audioPlayer.playSong();
+    },
+    setPlaylist : function (selectedPlaylist) {
+        currentPlaylist = selectedPlaylist;
+        audioPlayer.loadSongs(currentPlaylist.id);
     }
 };
 
 
-var Song = function (id, title, author, mp3) {
-    this.id = id;
-    this.title = title;
-    this.author = author;
-    this.mp3 = mp3;
-};
-
-var playlistUI = {
+/* FRONT END AUDIO */ //DONE
+var audioplayerUI = {
 
     bindEvents: function () {
-        $(".ytp-button").on('click', audioPlayer.resumeSong);
-        $(".step-forward").on('click', audioPlayer.nextSong);
-        $(".step-backward").on('click', audioPlayer.previousSong);
-        $(".home").on("click", playlistUI.gotoHomePage);
         $("[data-role='listview'] ").on('click','.song',audioPlayer.selectSong);
         $(".autoplay").on('click',audioPlayer.setAutoplay);
-    },
-    gotoHomePage :  function () {
-        //$.mobile.pageContainer = $("[data-role='main']").pagecontainer();
-        $.mobile.pageContainer.pagecontainer("change", "Home.html", {
-            transition : "flip",
-            reverse : true,
-            changeHash: true,
-            showLoadMsg : true
-        });
     },
 
     animateResumeOrPause: function () {
@@ -187,24 +229,31 @@ var playlistUI = {
             pause = "M11,10 L17,10 17,26 11,26 M20,10 L26,10 26,26 20,26",
             $animation = $('.animation');
         flip = !flip;
-        $animation.attr({
-            "from": flip ? pause : play,
-            "to": flip ? play : pause
-        }).get(0).beginElement();
+        if (audio.paused){
+            $animation.attr({
+                "from": /*flip ? pause : play,*/ pause,
+                "to": /*flip ? play : pause*/ play
+            }).get(0).beginElement();
+        } else {
+            $animation.attr({
+                "from": /*flip ? pause : play,*/ play,
+                "to": /*flip ? play : pause*/ pause
+            }).get(0).beginElement();
+        }
     },
 
     resumeOrPause: function () {
-        var byteKey = urlB64ToUint8Array(APP_SERVER_KEY)
+       // var byteKey = urlB64ToUint8Array(APP_SERVER_KEY)
 
-        playlistUI.animateResumeOrPause();
-        serviceWorker.pushManager.subscribe({
+        audioplayerUI.animateResumeOrPause();
+        /*serviceWorker.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: byteKey
         }).then(function (sub) {
             //subscribeOnServer(sub);
             //isSubscribed = true;
 
-        });
+        });*/
     },
 
     updateSongTitle: function () {
@@ -224,12 +273,73 @@ var playlistUI = {
     }
 };
 
-$(document).on("pagechange",function () {
-    console.log("initialized");
-    audioPlayer.loadSongs();
-    playlistUI.bindEvents();
+var playlists = {
+    loadPlaylists : function () {
 
-    registerServiceWorker();
+        promisePlaylist.then(function (response) {
+            playlistsUI.loadPlaylists(response);
+        }, function (error) {
+            console.log("ERROR: " + error);
+        })
+    }
+};
+
+var mainUI = {
+    bindEvents : function () {
+        $(".ytp-button").on('click', audioPlayer.resumeSong);
+        $(".step-forward").on('click', audioPlayer.nextSong);
+        $(".step-backward").on('click', audioPlayer.previousSong);
+        $(".home").on("click", mainUI.goToHomePage);
+        $(".playlists").on('click',mainUI.goToPlayListsPage);
+    },
+    goToPage : function (page) {
+        $.mobile.pageContainer.pagecontainer("change", page, {
+            transition : "flip",
+            reverse : true,
+            changeHash: true,
+            showLoadMsg : true
+        });
+    },
+
+    goToHomePage :  function () {
+        mainUI.goToPage("Index.html");
+
+    },
+    goToPlayListsPage : function () {
+        mainUI.goToPage("ListOfPlaylists.html");
+        playlists.loadPlaylists();
+    },
+    goToSongs : function (playlistid) {
+        console.log("derp")
+        mainUI.goToPage("Playlist.html");
+        audioPlayer.loadSongs(playlistid)
+    }
+};
+
+var playlistsUI = {
+    bindEvents : function () {
+        $("[data-role='listview']").on("click",'.selectplaylist',mainUI.goToSongs)
+    },
+    loadPlaylists : function (data) {
+        var playlists = $("[data-name=content]");
+        for (var i = 0; i< data.length; i++){
+            var html = "<li data-id='" + data[i].id + "' class='ui-li-has-alt ui-li-has-thumb ui-first-child ui-last-child'><a class='selectplaylist ui-btn' href='#'>" +
+                "<img src='../../images/covers/defaultcover.jpg' > " +
+                "<h2>" + data[i].name + "</h2>" +
+                "<p>" + data[i].songs.length + " songs </p>" +
+                "</a> <a class='ui-btn ui-btn-icon-notext ui-icon-gear' href='' data-rel='popup' data-position-to='window' data-transition='pop'></a></li>";
+            playlists.append(html);
+        }
+    }
+};
+
+
+
+$(document).on("pagechange",function () {
+    mainUI.bindEvents();
+    audioplayerUI.bindEvents();
+
+    //registerServiceWorker();
 
 });
 
