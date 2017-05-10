@@ -152,7 +152,7 @@ var audioPlayer = {
         console.log(currentSong);
         audio.src = '../songlist/' + currentSong.mp3;
     },
-    playSong: function () { // speel de current song af, indien er nog geen song afgespeelt is speel je de eerste song
+    playSong: function () { // speel de current song af, indien er nog geen song afgespeeld is speel je de eerste song
         audio.play();
         audioplayerUI.resumeOrPause();
         audioplayerUI.updateSongTitle();
@@ -214,6 +214,131 @@ var audioPlayer = {
     }
 };
 
+function  getID(user, password){
+
+    var users = $.get("/user");
+    var pw = require('node_modules/password-hash/lib');
+    var hashed = pw.generate(password);
+    for (var i = 0;i < users.length; i++){
+        if(users.nickname === user && users.password === hashed){
+            return users.id;
+        }
+    }
+}
+
+function addSongToPlaylist(userId, playlistId,songId){
+    var song = {"id": songId};
+
+    $.ajax({
+        url: "/user/" + userId + "/playlists/" + playlistId + "/songs",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(song),
+        dataType: "json"
+    })
+}
+function getSongsUser(userId){
+    var users = $.get("/user");
+    var songs = [];
+    for (var i = 0; i < users.length; i++){
+        if (users.id === userId){
+            for(var j = 0; j < users[i].songs; j++){
+                songs.push(users[i].songs[j]);
+            }
+        }
+    }
+    return songs;
+}
+
+function getRecordsUser(userId){
+    var users = $.get("/user");
+    var records = [];
+    for (var i = 0; i < users.length; i++){
+        if (users.id === userId){
+            for(var j = 0; j < users[i].records; j++){
+                records.push(users[i].records[j]);
+            }
+        }
+    }
+    return records;
+}
+function addPlaylist(userId, name){
+    var playlist = { "id" : checkIdPlaylist(userId), "name" : name, "songs": {}};
+
+    $.ajax({
+        url: "/user/" + userId + "/playlists",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(playlist),
+        dataType: "json"
+    })
+}
+function getPlaylistsUser(userId){
+    var users = $.get("/user");
+    var playlists = [];
+    for (var i = 0; i < users.length; i++){
+        if (users.id === userId){
+            for(var j = 0; j < users[i].playlists; j++){
+                playlists.push(users[i].playlists[j]);
+            }
+        }
+    }
+    return playlists;
+}
+
+//check id for new user
+function checkIdUser(){
+    var users = $.get("/user");
+    var id = 1;
+    for (var i = 0; i < users.length; i++){
+        if(id != users.id){
+            return i +1;
+        }
+    }
+}
+//check id for new playlist
+function checkIdPlaylist(id){
+    var playlist = $.get("/user/" + id);
+    var playlistId = 1;
+    for (var i = 0; i < playlist.length; i++){
+        if (playlistId != playlist.id){
+            return i +1;
+        }
+    }
+}
+function addUser(){
+    var User = {
+        "id" : "",
+        "name": "",
+        "email": "",
+        "nickname": "",
+        "password" : "",
+        "songs" :
+            {
+                /*
+                "id" : "",
+                "title": "",
+                "author": "",
+                "mp3":"",
+                "cover":""*/
+            },
+        "records" :
+            {
+                /*"id" : "",
+                "title": "",
+                "mp3":""*/
+            },
+        "playlists" :
+            {
+                /*"id": "",
+                "name": "",
+                "songs" :
+                    {
+                        "id" : ""
+                    }*/
+            }
+    }
+}
 
 /* FRONT END AUDIO */ //DONE
 var audioplayerUI = {
