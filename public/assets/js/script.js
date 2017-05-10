@@ -165,6 +165,17 @@ function  getID(user, password){
     }
 }
 
+function addSongToPlaylist(userId, playlistId,songId){
+    var song = {"id": songId};
+
+    $.ajax({
+        url: "/user/" + userId + "/playlists/" + playlistId + "/songs",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(song),
+        dataType: "json"
+    })
+}
 function getSongsUser(userId){
     var users = $.get("/user");
     var songs = [];
@@ -190,7 +201,17 @@ function getRecordsUser(userId){
     }
     return records;
 }
+function addPlaylist(userId, name){
+    var playlist = { "id" : checkIdPlaylist(userId), "name" : name, "songs": {}};
 
+    $.ajax({
+        url: "/user/" + userId + "/playlists",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(playlist),
+        dataType: "json"
+    })
+}
 function getPlaylistsUser(userId){
     var users = $.get("/user");
     var playlists = [];
@@ -202,6 +223,27 @@ function getPlaylistsUser(userId){
         }
     }
     return playlists;
+}
+
+//check id for new user
+function checkIdUser(){
+    var users = $.get("/user");
+    var id = 1;
+    for (var i = 0; i < users.length; i++){
+        if(id != users.id){
+            return i +1;
+        }
+    }
+}
+//check id for new playlist
+function checkIdPlaylist(id){
+    var playlist = $.get("/user/" + id);
+    var playlistId = 1;
+    for (var i = 0; i < playlist.length; i++){
+        if (playlistId != playlist.id){
+            return i +1;
+        }
+    }
 }
 function addUser(){
     var User = {
