@@ -296,6 +296,28 @@ function checkIdUser(){
         }
     }
 }
+//max 4 verkeerde logins
+function checkLoginAttempts(userId){
+    var loginAttempt = $.get("/user/" + userId);
+    if(loginAttempt.login <=3){
+        return true;
+    }
+}
+function incrLoginAttempts(userId){
+    var incrLoginAttempt = $.get("/user/" + userId);
+    incrLoginAttempt.login++;
+}
+function resetLoginAttempts(userId){
+
+    var reset = 0;
+    $.ajax({
+        url: "/user/" + userId + "/login",
+        type: "PATCH",
+        contentType: "application/json",
+        data: JSON.stringify(reset),
+        dataType: "json"
+    })
+}
 //check id for new playlist
 function checkIdPlaylist(id){
     var playlist = $.get("/user/" + id);
@@ -313,6 +335,7 @@ function addUser(){
         "email": "",
         "nickname": "",
         "password" : "",
+        "login": "",
         "songs" :
             {
                 /*
