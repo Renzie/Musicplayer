@@ -27,10 +27,12 @@
 }*/
 
 var getSongs =  function (playlistid) {
-   Promise.resolve($.get("playlists/" + playlistid));
+   $.get("playlists/" + playlistid);
 };
-var playlistURL = $.get("playlists");
-var promisePlaylist = Promise.resolve(playlistURL);
+
+var getPlaylists = $.get("playlists");
+
+
 
 /*function loadSoundCloud(url) {
     return new Promise(function (resolve, reject) {
@@ -109,7 +111,7 @@ audio.addEventListener("ended",function () {
     }
 }); // dit zorgt voor de autoplay
 
-var Song = function (id, title, author, mp3) {
+/*var Song = function (id, title, author, mp3) {
     this.id = id;
     this.title = title;
     this.author = author;
@@ -120,7 +122,7 @@ var Playlist = function (id, name) {
     this.id = id;
     this.name = name;
     this.songs = [];
-};
+};*/
 
 
 /* BACK-END AUDIO */
@@ -132,14 +134,18 @@ var audioPlayer = {
         offline: false
     },
     loadSongs: function (playlistid) {
-        getSongs(playlistid).then(function (data) {
+        console.log(playlistid);
+
+
+        /*getSongs(playlistid).then(function (data) {
+            console.log(data);
             for (var i = 0; i < data.songs.length; i++) {
                 currentPlaylist.songs.push(new Song(data.songs[i].id, data.songs[i].title, data.songs[i].author, data.songs[i].mp3));
             }
            audioplayerUI.fillPlaylistUI(audioPlayer.playlist.songs);
         }, function (xhrObj) {
             console.log(xhrObj);
-        });
+        });*/
         $(".playsong").on("click",audioPlayer.selectSong)
     },
 
@@ -148,7 +154,7 @@ var audioPlayer = {
         console.log(audioPlayer.autoplay);
     },
     setSong: function (id) {
-        currentSong = audioPlayer.playlist.songs[id - 1];//id van de song
+        currentSong = currentPlaylist.songs[id - 1];//id van de song
         console.log(currentSong);
         audio.src = '../songlist/' + currentSong.mp3;
     },
@@ -208,10 +214,13 @@ var audioPlayer = {
         audioPlayer.setSong(songId);
         audioPlayer.playSong();
     },
-    setPlaylist : function (selectedPlaylist, e) {
-        e.preventDefault();
-        currentPlaylist = selectedPlaylist;
-        audioPlayer.loadSongs(currentPlaylist.id);
+    setPlaylist : function () {
+        var playlistid = $(this).parent().attr('data-id');
+        $.get("playlists/" + playlistid).then(function (data) {
+            currentPlaylist = data;
+        }).then(function () {
+            mainUI.goToSongs();
+        });
     }
 };
 
@@ -410,7 +419,10 @@ var audioplayerUI = {
     },
 
     fillPlaylistUI: function (data) {
+
         var playlistUI = $(".currentPlaylist");
+        playlistUI.children().remove();
+        console.log(data)
         for (var i = 0; i < data.length; i++) {
             var html = "<li data-id='" + data[i].id + "' class='song ui-li-has-alt ui-li-has-thumb ui-first-child ui-last-child'><a class='playsong ui-btn' href='#'>" +
                 "<img src='../../images/covers/defaultcover.jpg' > " +
@@ -424,8 +436,7 @@ var audioplayerUI = {
 
 var playlists = {
     loadPlaylists : function () {
-
-        promisePlaylist.then(function (response) {
+        getPlaylists.then(function (response) {
             playlistsUI.loadPlaylists(response);
         }, function (error) {
             console.log("ERROR: " + error);
@@ -443,31 +454,34 @@ var mainUI = {
     },
     goToPage : function (page) {
         $.mobile.pageContainer.pagecontainer("change", page, {
-            transition : "flip",
+            transition : "fade",
             reverse : true,
             changeHash: true,
             showLoadMsg : true
         });
     },
-
     goToHomePage :  function () {
         mainUI.goToPage("Index.html");
 
     },
     goToPlayListsPage : function () {
+        pageChange(playlistsUI);
         mainUI.goToPage("ListOfPlaylists.html");
+
         playlists.loadPlaylists();
+        audioplayerUI.bindEvents();
+
     },
-    goToSongs : function (playlistid) {
-        console.log("derp");
+    goToSongs : function () {
+        pageChange(audioplayerUI);
         mainUI.goToPage("Playlist.html");
-        audioPlayer.loadSongs(playlistid)
+        audioplayerUI.fillPlaylistUI(currentPlaylist.songs);
     }
 };
 
 var playlistsUI = {
     bindEvents : function () {
-        $("[data-name='content']").on("click",'.selectplaylist',mainUI.goToSongs)
+        $("[data-role='listview']").on("click",'.selectplaylist',audioPlayer.setPlaylist)
     },
     loadPlaylists : function (data) {
         var playlists = $("[data-name=content]");
@@ -483,13 +497,19 @@ var playlistsUI = {
     }
 };
 
+var pageChange = function (UI) {
+    $(document).on("pagechange",function () {
+        UI.bindEvents();
+
+        //mainUI.bindEvents();
+        //audioplayerUI.bindEvents();
+
+        //registerServiceWorker();
+
+    });
+};
+pageChange(mainUI);
 
 
-$(document).on("pagechange",function () {
-    mainUI.bindEvents();
-    audioplayerUI.bindEvents();
 
-    //registerServiceWorker();
-
-});
 
