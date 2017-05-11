@@ -1,0 +1,16 @@
+{
+  "lang": "en",
+  "name": "Rethma",
+  "description": "Musicplayer with extra functions, easy playlist creator and recording",
+  "short_name": "Rethma",
+  "icons": [{
+    "src": "icons/png_images/fast-backward.png",
+    "sizes": "100x86"
+  },{
+    "src": "icons/png_images/pause.png",
+    "sizes": "100x100"
+  },{
+    "src": "icons/png_images/play.png",
+    "sizes": "100x110"
+    }]
+}
