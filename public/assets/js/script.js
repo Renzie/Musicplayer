@@ -134,7 +134,7 @@ var audioPlayer = {
     loadSongs: function (playlistid) {
         getSongs(playlistid).then(function (data) {
             for (var i = 0; i < data.songs.length; i++) {
-                audioPlayer.playlist.songs.push(new Song(data.songs[i].id, data.songs[i].title, data.songs[i].author, data.songs[i].mp3));
+                currentPlaylist.songs.push(new Song(data.songs[i].id, data.songs[i].title, data.songs[i].author, data.songs[i].mp3));
             }
            audioplayerUI.fillPlaylistUI(audioPlayer.playlist.songs);
         }, function (xhrObj) {
@@ -157,7 +157,7 @@ var audioPlayer = {
         audioplayerUI.resumeOrPause();
         audioplayerUI.updateSongTitle();
 
-        if (!("Notification" in window)) {
+       /* if (!("Notification" in window)) {
             $("header section h1").removeClass('hide')
         }
         Notification.requestPermission(function () {
@@ -166,7 +166,7 @@ var audioPlayer = {
                 icon: "../../images/covers/defaultcover.jpg"
             })
         });
-        Notification.buildFragment()
+        Notification.buildFragment()*/
     },
     playFirstSong : function () {
         audioPlayer.setSong(1) ;
@@ -208,13 +208,14 @@ var audioPlayer = {
         audioPlayer.setSong(songId);
         audioPlayer.playSong();
     },
-    setPlaylist : function (selectedPlaylist) {
+    setPlaylist : function (selectedPlaylist, e) {
+        e.preventDefault();
         currentPlaylist = selectedPlaylist;
         audioPlayer.loadSongs(currentPlaylist.id);
     }
 };
 
-function  getID(user, password){
+function getID(user, password){
 
     var users = $.get("/user");
     var pw = require('node_modules/password-hash/lib');
@@ -435,7 +436,7 @@ var mainUI = {
         playlists.loadPlaylists();
     },
     goToSongs : function (playlistid) {
-        console.log("derp")
+        console.log("derp");
         mainUI.goToPage("Playlist.html");
         audioPlayer.loadSongs(playlistid)
     }
@@ -443,10 +444,11 @@ var mainUI = {
 
 var playlistsUI = {
     bindEvents : function () {
-        $("[data-role='listview']").on("click",'.selectplaylist',mainUI.goToSongs)
+        $("[data-name='content']").on("click",'.selectplaylist',mainUI.goToSongs)
     },
     loadPlaylists : function (data) {
         var playlists = $("[data-name=content]");
+        playlists.children().remove();
         for (var i = 0; i< data.length; i++){
             var html = "<li data-id='" + data[i].id + "' class='ui-li-has-alt ui-li-has-thumb ui-first-child ui-last-child'><a class='selectplaylist ui-btn' href='#'>" +
                 "<img src='../../images/covers/defaultcover.jpg' > " +
