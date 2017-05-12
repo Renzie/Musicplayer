@@ -5,6 +5,8 @@
 footer{
     position : fixed !important;
 }
+
+
 #songname {
     margin: 0;
 }
@@ -17,6 +19,15 @@ footer{
     background-size: contain;
     -webkit-filter: brightness(0) invert(1);
     border:none;
+}
+
+.progressbar{
+    background-color : whitesmoke;
+}
+
+.progress{
+    height: 3vw;
+    background-color : #10da8d;
 }
 
 #songsetup button {
