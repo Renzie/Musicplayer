@@ -269,6 +269,10 @@ function getPlaylistsUser(userId) {
     return playlists;
 }
 
+function zuiverData(text){
+    var string = text.replace('\"','').replace('\'','').replace('\,','').replace('\\','');
+    return string;
+}
 //setUser as default for testing and stuff
 var userFunctions = {
     setUser: function () {
@@ -315,7 +319,7 @@ var userFunctions = {
     },
 
     checkIdPlaylist: function (id) {
-        var playlist = $.get("/user/" + id);
+        var playlist = $.get("/users/" + id);
         var playlistId = 1;
         for (var i = 0; i < playlist.length; i++) {
             if (playlistId != playlist.id) {
@@ -324,9 +328,28 @@ var userFunctions = {
         }
     },
 
+    loginUser : function() {
+        var users = $.get("/users");
+        var username = zuiverData(("#username").text());
+        var password = zuiverData(("#password").text());
+        users.then(function (data) {
+            for (var i= 0; i < data.length; i++ ){
+                if (username === data[i].username){
+                    if (password === data[i].password){
+                        return data[i];
+                    }
+                }
+
+                }
+            return false;
+        })
+
+
+
+    },
     addUser : function () {
         var User = {
-            "id": "",
+            "id": userFunctions.checkIdUser(),
             "name": "",
             "email": "",
             "nickname": "",
