@@ -283,7 +283,7 @@ function getPlaylistsUser(userId) {
     return playlists;
 }
 
-function zuiverData(text){
+function sanatize(text){
     var string = text.replace('\"','').replace('\'','').replace('\,','').replace('\\','');
     return string;
 }
@@ -344,17 +344,25 @@ var userFunctions = {
 
     loginUser : function() {
         var users = $.get("/users");
-        var username = zuiverData(("#username").text());
-        var password = zuiverData(("#password").text());
+        var username = sanatize(("#username").text());
+        var password = sanatize(("#password").text());
+
         users.then(function (data) {
             for (var i= 0; i < data.length; i++ ){
-                if (username === data[i].username){
-                    if (password === data[i].password){
-                        return data[i];
+                if (username === data[i].nickname){
+                    if (userFunctions.checkLoginAttempts(data[i].id)){
+                        if (passwordHash.verify(password, data[i].password)){
+                            userFunctions.resetLoginAttempts(data[i].id);
+                            return data[i];
+                        } else {
+                            userFunctions.incrLoginAttempts(data[i].id);
+                            return false;
+                        }
                     }
-                }
 
                 }
+
+            }
             return false;
         })
 
@@ -362,13 +370,17 @@ var userFunctions = {
 
     },
     addUser : function () {
+
+        var password = sanatize($("#passwordRegister"));
+        var passwordHash = require('./lib/password-hash');
+        var hashedPassword = passwordHash.generate(password);
         var User = {
             "id": userFunctions.checkIdUser(),
-            "name": "",
-            "email": "",
-            "nickname": "",
-            "password": "",
-            "login": "",
+            "name": sanatize($("#name")),
+            "email": sanatize($("#email")),
+            "nickname": sanatize($("#usernameRegister")),
+            "password": hashedPassword,
+            "login": 0,
             "songs": {
                 /*
                  "id" : "",
@@ -390,7 +402,7 @@ var userFunctions = {
                  "id" : ""
                  }*/
             }
-        }
+        };
         $.ajax({
             url: "/user",
             type: "POST",
