@@ -31,6 +31,14 @@ footer{
     background-color : #10da8d;
 }
 
+.curtime, .duration{
+    width: 20vw;
+    margin-left: 4vw;
+    display: inline-block;
+}
+
+
+
 #songsetup button {
     width: 30vw;
     background: transparent;
@@ -62,7 +70,7 @@ footer{
 
 #songsetup .step-backward{
     margin-right: 4vw;
-    margin-left: 9vw;
+
     background-image: url(../../images/icons/step-backward.png);
 }
 

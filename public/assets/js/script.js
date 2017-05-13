@@ -7,11 +7,10 @@
      - MANIFEST
      - DEFTIGE CODE (NON-EXISTENT IN ONS WOORDENBOEK) AKA PROMISES, FETCH, SERVICE WORKERS, ...
      - REST VAN DE UI AFWERKEN
-     - PROGRESS BAR VOOR MUZIEK
      - ....
 
  DONE : - MUZIEKSPELER (PLAY - PAUSE, NEXTSONG, SONG ON CLICK, )
-
+        - PROGRESS BAR VOOR MUZIEK
  */
 
 'use strict';
@@ -110,28 +109,41 @@ var currentPlaylist;
 var currentUser;
 var audio = new Audio();
 
+var setAudioEventListeners = function () {
+    audio.addEventListener("ended", function () {
+        if (audioPlayer.autoplay) {
+            audioPlayer.nextSong();
+        }
+    });
+
+    audio.addEventListener("loadedmetadata", audioplayerUI.setDuration);
+
+    audio.addEventListener("timeupdate", function () {
+        var duration = audio.duration,
+            currentTime = audio.currentTime,
+            minutes = Math.floor(currentTime / 60),
+            seconds =  Math.floor(currentTime) % 60 ,
+            width = (currentTime / duration) * 100;
+
+
+        minutes = minutes >= 10 ? minutes : '0' + minutes;
+        seconds = seconds >= 10 ? seconds : '0' + seconds;
+        $(".curtime .minutes").text(minutes);
+        $(".curtime .seconds").text(seconds);
+        console.log(audio.duration)
+
+        $(".progress").css("width" , width + "vw");
+
+    });
+}
 // dit zorgt voor de autoplay
-audio.addEventListener("ended", function () {
-    if (audioPlayer.autoplay) {
-        audioPlayer.nextSong();
-    }
-});
 
-audio.addEventListener("timeupdate", function () {
-    var duration = audio.duration;
-    var currentTime = audio.currentTime;
-    var width = (currentTime / duration) * 100;
-
-    $(".progress").css("width" , width + "vw");
-
-});
 
 /* BACK-END AUDIO */
 var audioPlayer = {
-    autoplay: true,
+    autoplay: false,
     setAutoplay: function () {
-        audioPlayer.autoplay = !audioPlayer.autoplay;
-        console.log("autoplay set: " + audioPlayer.autoplay);
+        audioPlayer.autoplay = !!$(this).is(':checked');
     },
     setSong: function (id) {
         currentSong = currentPlaylist.songs[id - 1];//id van de song
@@ -142,6 +154,7 @@ var audioPlayer = {
         audio.play();
         audioplayerUI.resumeOrPause();
         audioplayerUI.updateSongTitle();
+        console.log(audio.duration);
     },
     playFirstSong: function () {
         audioPlayer.setSong(1);
@@ -169,6 +182,7 @@ var audioPlayer = {
             audioPlayer.setSong(currentSong.id + 1);
             audioPlayer.playSong()
         }
+
         console.log("next song")
     },
     previousSong: function () {
@@ -396,6 +410,17 @@ var audioplayerUI = {
         $(".autoplay").off().on('click', audioPlayer.setAutoplay);
     },
 
+    setDuration: function () {
+        var duration = Math.floor(audio.duration),
+            minutes = Math.floor(duration / 60),
+            seconds =  Math.floor(duration) % 60;
+
+
+        $(".duration .minutes").text(minutes);
+        $(".duration .seconds").text(seconds);
+
+    },
+
     resumeOrPause: function () {
         var flip = true,
             play = "M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28",
@@ -456,7 +481,8 @@ var mainUI = {
         $(".home").off().on("click", mainUI.goToHomePage);
         $(".playlists").off().on('click', mainUI.goToPlayListsPage);
         $(".progressbar").off().on('click', mainUI.changeCurrentTime);
-
+        $(".settings").off().on('click', mainUI.goToSettings);
+        $(".register").off().on('click', mainUI.goToRegister)
     },
 
     loadContent : function (dataname) {
@@ -495,6 +521,16 @@ var mainUI = {
         audioplayerUI.bindEvents();
 
     },
+    goToSettings : function () {
+        mainUI.loadContent("settings");
+        settingsUI.bindEvents();
+    },
+
+    goToRegister : function (e) {
+        e.preventDefault();
+        mainUI.loadContent("register");
+
+    },
 
     changeCurrentTime : function (e) {
 
@@ -527,6 +563,12 @@ var playlistsUI = {
     }
 };
 
+var settingsUI = {
+    bindEvents : function () {
+        $("#autoplay").change(audioPlayer.setAutoplay)
+    }
+};
+
 var pageChange = function (UI) {
     $(document).on("pagechange", function () {
         UI.bindEvents();
@@ -547,6 +589,7 @@ var doFunctionOnPageLoad = function (thatFunction) {
 
 $(function () {
     mainUI.bindEvents();
+    setAudioEventListeners();
 })
 pageLoad();
 //pageChange(mainUI);
