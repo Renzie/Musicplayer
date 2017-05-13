@@ -450,7 +450,6 @@ var mainUI = {
             changeHash: true,
             showLoadMsg: true
         });
-
     },
     goToHomePage: function () {
         mainUI.loadContent("home")

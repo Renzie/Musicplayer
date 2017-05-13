@@ -22,7 +22,7 @@
     </header>
 
 
-    <div class="hide" data-name="home"  data-role="main" data-theme="c">
+    <div data-name="home"  data-role="main" data-theme="c">
         <nav data-theme="c" data-role="navbar"  >
             <ul >
                 <li><a href="#" class="playlists"   data-iconpos="top" data-icon="bullets">My playlists</a> </li>
@@ -49,7 +49,7 @@
         </ul>
     </div>
 
-    <div data-name="songs" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
+    <div class="hide" data-name="login" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
         <form>
             <fieldset>
                 <label for="username">Username</label>
@@ -64,6 +64,14 @@
         </form>
     </div>
 
+
+    <div class="hide" data-name="settings" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
+        <input type="checkbox" name="autoplay" id="autoplay" checked="">
+        <label for="autoplay">Autoplay</label>
+
+        <input type="checkbox" name="shuffle" id="shuffle" checked="">
+        <label for="shuffle">Autoplay</label>
+    </div>
 
 
     <footer data-tap-toggle="false" data-role="footer" data-theme="c" data-position="fixed">
