@@ -354,6 +354,13 @@ var userFunctions = {
                  }*/
             }
         }
+        $.ajax({
+            url: "/user",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(User),
+            dataType: "json"
+        })
     }
 
 
