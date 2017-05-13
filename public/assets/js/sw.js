@@ -6,9 +6,10 @@
 var cacheName = 'v1';
 
 var cacheFiles = [
-    '../../images/icons/refresh.png',
+    '../../images/icons/',
     '../css/reset.css',
-    '../css/screen.css'
+    '../css/screen.css',
+    '../../themes/'
 ];
 
 self.addEventListener("install", function (e) {

@@ -22,21 +22,54 @@
     </header>
 
 
-    <div  data-role="main" data-theme="c" data-position="relative">
-        <nav data-theme="c"  >
-            <ul class="ui-mini ui-grid-b"  data-inline="true" >
-                <li><a href="#" data-inline="true" data-enhanced="true" data-iconpos="top" data-role="button" data-icon="bullets">My playlists</a> </li>
-                <li><a href="#" data-inline="true" data-enhanced="true" data-iconpos="top" data-role="button" data-icon="search">Search</a></li>
-                <li><a href="#" data-inline="true" data-enhanced="true" data-iconpos="top" data-role="button" data-icon="gear">Settings</a></li>
-                <li><a href="#" data-inline="true" data-enhanced="true" data-iconpos="top" data-role="button" data-icon="gear">Back to playlist</a></li>
+    <div class="hide" data-name="home"  data-role="main" data-theme="c">
+        <nav data-theme="c" data-role="navbar"  >
+            <ul >
+                <li><a href="#" class="playlists"   data-iconpos="top" data-icon="bullets">My playlists</a> </li>
+                <li><a href="#" data-iconpos="top" data-icon="search">Search</a></li>
+                <li><a href="#" data-iconpos="top"  data-icon="gear">Settings</a></li>
+                <li><a href="#" data-iconpos="top" data-icon="gear">Back to playlist</a></li>
+                <li><a href="#" data-iconpos="top" data-icon="gear">Recordings</a></li>
+                <li><a href="#"  data-iconpos="top" data-icon="gear">Back to playlist</a></li>
             </ul>
         </nav>
     </div>
 
-    <div class="progressbar" data-role="pgrbar">
-        <div class="progress"></div>
+
+    <div class="hide" data-name="playlists" data-role="main" data-theme="c" data-position="relative">
+        <ul data-name="content" data-role="listview" data-split-icon="gear">
+            <!-- hier zijn de playlists -->
+        </ul>
     </div>
+
+    <div class="hide" data-name="songs" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
+        <ul data-name="content" class="currentPlaylist" data-role="listview" data-split-icon="gear">
+
+
+        </ul>
+    </div>
+
+    <div data-name="songs" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
+        <form>
+            <fieldset>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" value="">
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" value="">
+
+                <input class="ui-mini" data-theme="c" type="submit" value="Login">
+                <input data-theme="c" type="submit" value="Register">
+            </fieldset>
+        </form>
+    </div>
+
+
+
     <footer data-tap-toggle="false" data-role="footer" data-theme="c" data-position="fixed">
+        <div class="progressbar" data-role="pgrbar">
+            <div class="progress"></div>
+        </div>
         <section id="songsetup" data-position="fixed">
             <!-- hier moet play / pause / skip / previous staan -->
 
@@ -76,6 +109,6 @@
 
     </footer>
 </div>
-<script type="text/javascript" src="assets/js/script.js"></script>
+<script async type="text/javascript" src="assets/js/script.js"></script>
 </body>
 </html>

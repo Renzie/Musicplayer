@@ -26,6 +26,7 @@ footer{
 }
 
 .progress{
+    width: 0;
     height: 3vw;
     background-color : #10da8d;
 }

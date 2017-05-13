@@ -2,13 +2,13 @@
  * Created by Renzie on 16/02/2016.
  */
 /*  TODO : - API IMPLEMENTATION
- - PUSH NOTIFICATIONS
- - MATTHIAS ZEN STUK VAN CCCP
- - MANIFEST
- - DEFTIGE CODE (NON-EXISTENT IN ONS WOORDENBOEK) AKA PROMISES, FETCH, SERVICE WORKERS, ...
- - REST VAN DE UI AFWERKEN
- - PROGRESS BAR VOOR MUZIEK
- - ....
+     - PUSH NOTIFICATIONS
+     - MATTHIAS ZEN STUK VAN CCCP
+     - MANIFEST
+     - DEFTIGE CODE (NON-EXISTENT IN ONS WOORDENBOEK) AKA PROMISES, FETCH, SERVICE WORKERS, ...
+     - REST VAN DE UI AFWERKEN
+     - PROGRESS BAR VOOR MUZIEK
+     - ....
 
  DONE : - MUZIEKSPELER (PLAY - PAUSE, NEXTSONG, SONG ON CLICK, )
 
@@ -121,7 +121,6 @@ audio.addEventListener("timeupdate", function () {
     var duration = audio.duration;
     var currentTime = audio.currentTime;
     var width = (currentTime / duration) * 100;
-    console.log(width);
 
     $(".progress").css("width" , width + "vw");
 
@@ -132,7 +131,7 @@ var audioPlayer = {
     autoplay: true,
     setAutoplay: function () {
         audioPlayer.autoplay = !audioPlayer.autoplay;
-        console.log(audioPlayer.autoplay);
+        console.log("autoplay set: " + audioPlayer.autoplay);
     },
     setSong: function (id) {
         currentSong = currentPlaylist.songs[id - 1];//id van de song
@@ -187,6 +186,7 @@ var audioPlayer = {
         audioPlayer.playSong();
     },
     setPlaylist: function () {
+        console.log("derp")
         var playlistid = $(this).parent().attr('data-id');
         return getUser(currentUser.id).then(function (data) {
             currentPlaylist = data.playlists[playlistid - 1];
@@ -425,7 +425,17 @@ var mainUI = {
         $(".step-backward").off().on('click', audioPlayer.previousSong);
         $(".home").off().on("click", mainUI.goToHomePage);
         $(".playlists").off().on('click', mainUI.goToPlayListsPage);
+        $(".progressbar").off().on('click', mainUI.changeCurrentTime);
+
     },
+
+    loadContent : function (dataname) {
+        $("[data-role='main']").hide();
+
+        $("[data-name='" + dataname + "']").css("display", "inline");
+
+    },
+
     goToPage: function (page) {
         $.mobile.pageContainer.pagecontainer("change", page, {
             transition: "fade",
@@ -436,23 +446,38 @@ var mainUI = {
 
     },
     goToHomePage: function () {
-        mainUI.goToPage("Index.html");
+        mainUI.loadContent("home")
 
     },
     goToPlayListsPage: function () {
-        pageChange(playlistsUI);
-        mainUI.goToPage("ListOfPlaylists.html");
-        doFunctionOnPageLoad(getPlaylists);
 
+        pageChange(playlistsUI);
+        mainUI.loadContent("playlists");
+        //mainUI.goToPage("ListOfPlaylists.html");
+        //doFunctionOnPageLoad(getPlaylists);
+        getPlaylists();
+        playlistsUI.bindEvents();
     },
     goToSongs: function () {
-        pageChange(audioplayerUI);
-        doFunctionOnPageLoad(audioplayerUI.fillPlaylistUI);
-        mainUI.goToPage("Playlist.html");
-
+        //pageChange(audioplayerUI);
+        mainUI.loadContent("songs");
+        audioplayerUI.fillPlaylistUI();
         console.log(currentPlaylist);
+        audioplayerUI.bindEvents();
+
     },
 
+    changeCurrentTime : function (e) {
+
+        var x = e.pageX - this.offsetLeft,
+            progressbar = $(".progress"),
+            totalWidth = window.innerWidth,
+            clickedValue = x / totalWidth;
+
+            progressbar.css("width", clickedValue * audio.duration   + "vw");
+            audio.currentTime = clickedValue * audio.duration
+
+    }
 };
 
 var playlistsUI = {
@@ -491,8 +516,11 @@ var doFunctionOnPageLoad = function (thatFunction) {
 };
 
 
+$(function () {
+    mainUI.bindEvents();
+})
 pageLoad();
-pageChange(mainUI);
+//pageChange(mainUI);
 
 
 
