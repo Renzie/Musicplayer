@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/screen.css">
+    <link rel="stylesheet" href="/themes/MusicPlayer.min.css" />
+    <link rel="stylesheet" href="/themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="/assets/css/jquery.mobile.1.4.5.min.css" />
+    <link rel="stylesheet" href="/icons/icon-pack-custom.css"/>
+    <script src="/assets/jquery/jquery-2.1.4.min.js"></script>
+    <script src="/assets/jquery/jquery.mobile.1.4.5.min.js"></script>
+</head>
+</head>
+<body>
+<div data-role="page" data-theme="a">
+    <header data-tap-toggle="false" data-role="header" data-theme="d" data-position="fixed">
+        <h1 id="songname" align="center">No song selected</h1>
+        <section class="ui-bar-c">
+            <h2 align="center" data-theme="c">Playlist 1</h2>
+        </section>
+    </header>
+
+
+    <div data-name="home" data-role="main" data-theme="c">
+        <nav data-theme="c" data-role="navbar">
+            <ul>
+                <li><a href="#" class="playlists" data-iconpos="top" data-icon="bullets">My playlists</a></li>
+                <li><a href="#" data-iconpos="top" data-icon="search">Search</a></li>
+                <li><a href="#" data-iconpos="top" data-icon="gear">Settings</a></li>
+                <li><a href="#" data-iconpos="top" data-icon="gear">Back to playlist</a></li>
+                <li><a href="#" data-iconpos="top" data-icon="gear">Recordings</a></li>
+                <li><a href="#" data-iconpos="top" data-icon="home">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="offline" data-theme="c">
+        <h2>You are in offline mode.</h2>
+    </div>
+
+    <footer data-tap-toggle="false" data-role="footer" data-theme="c" data-position="fixed">
+        <nav data-role="navbar">
+            <ul>
+                <li><a href="#" class="playlists" data-icon="bullets">My playlists</a></li>
+                <li><a href="#" class="home" data-icon="Home">Home</a></li>
+                <li><a href="#" class="settings" data-icon="gear">Settings</a></li>
+            </ul>
+
+        </nav>
+    </footer>
+
+
+    <script async type="text/javascript" src="assets/js/script.js"></script>
+</div>
+</body>
+</html>

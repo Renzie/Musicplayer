@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,10 +8,10 @@
     <link rel="stylesheet" href="assets/css/screen.css">
     <link rel="stylesheet" href="themes/MusicPlayer.min.css" />
     <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="assets/css/jquery.mobile.1.4.5.min.css" />
     <link rel="stylesheet" href="icons/icon-pack-custom.css"/>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="assets/jquery/jquery-2.1.4.min.js"></script>
+    <script src="assets/jquery/jquery.mobile.1.4.5.min.js"></script>
 </head>
 <body>
 <div data-role="page" data-theme="a">
@@ -20,10 +21,13 @@
             <h2 align="center" data-theme="c">Playlist 1</h2>
         </section>
     </header>
+    <div data-role="popup" data-theme="c">
+        <p class="message"></p>
+    </div>
 
 
-    <div class="hide" data-name="home"  data-role="main" data-theme="c">
-        <nav data-theme="c" data-role="navbar"  >
+    <div data-name="home"  data-role="main" data-theme="c">
+        <nav data-theme="c" data-role="navbar" >
             <ul >
                 <li><a href="#" class="playlists"   data-iconpos="top" data-icon="bullets">My playlists</a> </li>
                 <li><a href="#" data-iconpos="top" data-icon="search">Search</a></li>
@@ -49,7 +53,7 @@
         </ul>
     </div>
 
-    <div data-name="login" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
+    <div class="hide" data-name="login" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
         <form>
             <fieldset>
                 <label for="username">Username</label>
@@ -87,7 +91,7 @@
 
 
 
-    <div  data-name="settings" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
+    <div class="hide" data-name="settings" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
         <input type="checkbox" name="autoplay" id="autoplay" >
         <label for="autoplay">Autoplay</label>
 
@@ -133,11 +137,12 @@
         <nav data-role="navbar">
             <ul>
                 <li><a href="#" class="playlists" data-icon="bullets">My playlists</a></li>
-                <li><a href="#" class="home" data-icon="Home">Home</a></li>
+                <li><a href="#" class="home" data-icon="home">Home</a></li>
                 <li><a href="#" class="settings" data-icon="gear">Settings</a></li>
             </ul>
 
         </nav>
+
 
     </footer>
 </div>

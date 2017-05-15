@@ -2,31 +2,18 @@
  * Created by Renzie on 16/02/2016.
  */
 /*  TODO : - API IMPLEMENTATION
-     - PUSH NOTIFICATIONS
-     - MATTHIAS ZEN STUK VAN CCCP
-     - MANIFEST
-     - DEFTIGE CODE (NON-EXISTENT IN ONS WOORDENBOEK) AKA PROMISES, FETCH, SERVICE WORKERS, ...
-     - REST VAN DE UI AFWERKEN
-     - ....
+ - PUSH NOTIFICATIONS
+ - MATTHIAS ZEN STUK VAN CCCP
+ - MANIFEST
+ - DEFTIGE CODE (NON-EXISTENT IN ONS WOORDENBOEK) AKA PROMISES, FETCH, SERVICE WORKERS, ...
+ - REST VAN DE UI AFWERKEN
+ - ....
 
  DONE : - MUZIEKSPELER (PLAY - PAUSE, NEXTSONG, SONG ON CLICK, )
-        - PROGRESS BAR VOOR MUZIEK
+ - PROGRESS BAR VOOR MUZIEK
  */
 
 'use strict';
-
-var getSongs = function (playlistid) {
-    $.get("user/playlists/" + playlistid);
-};
-
-var getPlaylist = function () {
-    return getUser(currentUser.id).then(function (data) {
-        currentPlaylist = data.playlists;
-    }, function (error) {
-        console.log(error);
-    })
-};
-
 var getPlaylists = function () {
     return getUser(currentUser.id).then(function (data) {
         playlistsUI.loadPlaylists(data.playlists);
@@ -86,18 +73,19 @@ var urlB64ToUint8Array = function (base64String) {
 
 var registerServiceWorker = function () { //voor pushnotification
     if ('serviceWorker' in navigator && 'PushManager' in window) {
-        console.log('Service worker and push is supported');
+        if (serviceWorker == null) {
 
-        navigator.serviceWorker.register('assets/js/sw.js')
-            .then(function (swReg) {
-                console.log('Service worker is registered', swReg.scope);
-
-                serviceWorker = swReg;
-            })
-            .catch(function (error) {
-                console.error('Service worker error', error);
-            })
-    } else {
+            navigator.serviceWorker
+                .register('/sw.js')
+                .then(function (swReg) {
+                    console.log(swReg)
+                })
+                .catch(function (error) {
+                    console.error('Service worker error', error);
+                })
+        }
+    }
+    else {
         console.warn('Push messaging is not supported');
     }
 };
@@ -122,7 +110,7 @@ var setAudioEventListeners = function () {
         var duration = audio.duration,
             currentTime = audio.currentTime,
             minutes = Math.floor(currentTime / 60),
-            seconds =  Math.floor(currentTime) % 60 ,
+            seconds = Math.floor(currentTime) % 60,
             width = (currentTime / duration) * 100;
 
 
@@ -130,9 +118,8 @@ var setAudioEventListeners = function () {
         seconds = seconds >= 10 ? seconds : '0' + seconds;
         $(".curtime .minutes").text(minutes);
         $(".curtime .seconds").text(seconds);
-        console.log(audio.duration)
 
-        $(".progress").css("width" , width + "vw");
+        $(".progress").css("width", width + "vw");
 
     });
 }
@@ -154,7 +141,6 @@ var audioPlayer = {
         audio.play();
         audioplayerUI.resumeOrPause();
         audioplayerUI.updateSongTitle();
-        console.log(audio.duration);
     },
     playFirstSong: function () {
         audioPlayer.setSong(1);
@@ -182,8 +168,6 @@ var audioPlayer = {
             audioPlayer.setSong(currentSong.id + 1);
             audioPlayer.playSong()
         }
-
-        console.log("next song")
     },
     previousSong: function () {
         if (currentSong == undefined) {
@@ -200,7 +184,6 @@ var audioPlayer = {
         audioPlayer.playSong();
     },
     setPlaylist: function () {
-        console.log("derp")
         var playlistid = $(this).parent().attr('data-id');
         return getUser(currentUser.id).then(function (data) {
             currentPlaylist = data.playlists[playlistid - 1];
@@ -283,8 +266,8 @@ function getPlaylistsUser(userId) {
     return playlists;
 }
 
-function sanatize(text){
-    var string = text.replace('\"','').replace('\'','').replace('\,','').replace('\\','');
+function sanatize(text) {
+    var string = text.replace('\"', '').replace('\'', '').replace('\,', '').replace('\\', '');
     return string;
 }
 //setUser as default for testing and stuff
@@ -342,16 +325,16 @@ var userFunctions = {
         }
     },
 
-    loginUser : function() {
+    loginUser: function () {
         var users = $.get("/users");
         var username = sanatize(("#username").text());
         var password = sanatize(("#password").text());
 
         users.then(function (data) {
-            for (var i= 0; i < data.length; i++ ){
-                if (username === data[i].nickname){
-                    if (userFunctions.checkLoginAttempts(data[i].id)){
-                        if (passwordHash.verify(password, data[i].password)){
+            for (var i = 0; i < data.length; i++) {
+                if (username === data[i].nickname) {
+                    if (userFunctions.checkLoginAttempts(data[i].id)) {
+                        if (passwordHash.verify(password, data[i].password)) {
                             userFunctions.resetLoginAttempts(data[i].id);
                             return data[i];
                         } else {
@@ -359,17 +342,12 @@ var userFunctions = {
                             return false;
                         }
                     }
-
                 }
-
             }
             return false;
         })
-
-
-
     },
-    addUser : function () {
+    addUser: function () {
 
         var password = sanatize($("#passwordRegister"));
         var passwordHash = require('./lib/password-hash');
@@ -411,26 +389,15 @@ var userFunctions = {
             dataType: "json"
         })
     }
-
-
 };
 /* FRONT END AUDIO */ //DONE
 var audioplayerUI = {
-
-    bindEvents: function () {
-        $("[data-role='listview'] ").off().on('click', '.song', audioPlayer.selectSong);
-        $(".autoplay").off().on('click', audioPlayer.setAutoplay);
-    },
-
     setDuration: function () {
         var duration = Math.floor(audio.duration),
             minutes = Math.floor(duration / 60),
-            seconds =  Math.floor(duration) % 60;
-
-
+            seconds = Math.floor(duration) % 60;
         $(".duration .minutes").text(minutes);
         $(".duration .seconds").text(seconds);
-
     },
 
     resumeOrPause: function () {
@@ -451,20 +418,6 @@ var audioplayerUI = {
             }).get(0).beginElement();
         }
     },
-
-    //resumeOrPause: function () {
-        // var byteKey = urlB64ToUint8Array(APP_SERVER_KEY)
-
-     //   audioplayerUI.animateResumeOrPause();
-        /*serviceWorker.pushManager.subscribe({
-         userVisibleOnly: true,
-         applicationServerKey: byteKey
-         }).then(function (sub) {
-         //subscribeOnServer(sub);
-         //isSubscribed = true;
-
-         });*/
-    //},
 
     updateSongTitle: function () {
         $("header h1").text(currentSong.title + " - " + currentSong.author);
@@ -494,73 +447,61 @@ var mainUI = {
         $(".playlists").off().on('click', mainUI.goToPlayListsPage);
         $(".progressbar").off().on('click', mainUI.changeCurrentTime);
         $(".settings").off().on('click', mainUI.goToSettings);
-        $(".register").off().on('click', mainUI.goToRegister)
+        $(".register").off().on('click', mainUI.goToRegister);
+        $("#autoplay").change(audioPlayer.setAutoplay);
+        $("[data-name='songs'] [data-role='listview'] ").off().on('click', '.song', audioPlayer.selectSong);
+        $(".autoplay").off().on('click', audioPlayer.setAutoplay);
+        $("[data-name='playlists'] [data-role='listview']").off().on("click", '.selectplaylist', audioPlayer.setPlaylist)
     },
 
-    loadContent : function (dataname) {
+    loadContent: function (dataname) {
         $("[data-role='main']").hide();
-
         $("[data-name='" + dataname + "']").css("display", "inline");
-
     },
 
-    goToPage: function (page) {
-        $.mobile.pageContainer.pagecontainer("change", page, {
-            transition: "fade",
-            reverse: true,
-            changeHash: true,
-            showLoadMsg: true
-        });
-    },
     goToHomePage: function () {
         mainUI.loadContent("home")
-
+        mainUI.showMessage("to home");
     },
+
     goToPlayListsPage: function () {
-
-        pageChange(playlistsUI);
         mainUI.loadContent("playlists");
-        //mainUI.goToPage("ListOfPlaylists.html");
-        //doFunctionOnPageLoad(getPlaylists);
         getPlaylists();
-        playlistsUI.bindEvents();
     },
+
     goToSongs: function () {
-        //pageChange(audioplayerUI);
         mainUI.loadContent("songs");
         audioplayerUI.fillPlaylistUI();
-        console.log(currentPlaylist);
-        audioplayerUI.bindEvents();
-
     },
-    goToSettings : function () {
+
+    goToSettings: function () {
         mainUI.loadContent("settings");
-        settingsUI.bindEvents();
     },
 
-    goToRegister : function (e) {
+    goToRegister: function (e) {
         e.preventDefault();
         mainUI.loadContent("register");
-
     },
 
-    changeCurrentTime : function (e) {
-
+    changeCurrentTime: function (e) {
         var x = e.pageX - this.offsetLeft,
             progressbar = $(".progress"),
             totalWidth = window.innerWidth,
             clickedValue = x / totalWidth;
 
-            progressbar.css("width", clickedValue * audio.duration   + "vw");
-            audio.currentTime = clickedValue * audio.duration
-
+        progressbar.css("width", clickedValue * audio.duration + "vw");
+        audio.currentTime = clickedValue * audio.duration
+    },
+    showMessage : function (text) {
+        $("[data-role='popup'] .message").html(text);
+        $("[data-role='popup']").popup("open");
+        setTimeout(function () {
+            $("[data-role='popup']").popup("close");
+        }, 1000)
     }
 };
 
 var playlistsUI = {
-    bindEvents: function () {
-        $("[data-role='listview']").off().on("click", '.selectplaylist', audioPlayer.setPlaylist)
-    },
     loadPlaylists: function (data) {
         var playlists = $("[data-name=content]");
         playlists.children().remove();
@@ -575,37 +516,9 @@ var playlistsUI = {
     }
 };
 
-var settingsUI = {
-    bindEvents : function () {
-        $("#autoplay").change(audioPlayer.setAutoplay)
-    }
-};
-
-var pageChange = function (UI) {
-    $(document).on("pagechange", function () {
-        UI.bindEvents();
-    });
-};
-
-var pageLoad = function (doThatFunction) {
-    $(function () {
-        registerServiceWorker();
-        userFunctions.setUser();
-    })
-};
-
-var doFunctionOnPageLoad = function (thatFunction) {
-    thatFunction();
-};
-
-
 $(function () {
+    userFunctions.setUser();
     mainUI.bindEvents();
     setAudioEventListeners();
-})
-pageLoad();
-//pageChange(mainUI);
-
-
-
-
+    registerServiceWorker();
+});
