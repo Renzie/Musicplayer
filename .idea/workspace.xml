@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a835f707-2028-40f1-ab3b-148d70489407" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/sw.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/assets/js/sw.js" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/assets/css/jquery.mobile.1.4.5.min.css" afterPath="$PROJECT_DIR$/public/themes/jquery.mobile.1.4.5.min.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/Index.html" afterPath="$PROJECT_DIR$/public/Index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/Playlist.html" afterPath="$PROJECT_DIR$/public/Playlist.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/script.js" afterPath="$PROJECT_DIR$/public/assets/js/script.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/sw.js" afterPath="$PROJECT_DIR$/public/sw.js" />
     </list>
     <ignored path="MusicPlayer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,11 +27,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/Index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+            <state relative-caret-position="510">
+              <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+              <folding>
+                <element signature="n#style#0;n#ul#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MusicPlayer.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/themes/MusicPlayer.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -71,29 +82,29 @@
       <file leaf-file-name="screen.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/assets/css/screen.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
+            <state relative-caret-position="17">
               <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="script.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/assets/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="531">
-              <caret line="509" column="70" selection-start-line="509" selection-start-column="70" selection-end-line="509" selection-end-column="70" />
+            <state relative-caret-position="476">
+              <caret line="453" column="122" selection-start-line="453" selection-start-column="122" selection-end-line="453" selection-end-column="122" />
               <folding>
-                <element signature="e#662#1134#0" expanded="false" />
-                <element signature="e#1358#1747#0" expanded="false" />
-                <element signature="e#4606#4809#0" expanded="false" />
+                <element signature="e#549#1021#0" expanded="false" />
+                <element signature="e#1245#1634#0" expanded="false" />
+                <element signature="e#4493#4696#0" expanded="false" />
                 <element signature="n#!!block;n#getID#0" expanded="false" />
                 <element signature="n#!!block;n#addSongToPlaylist#0" expanded="false" />
                 <element signature="n#!!block;n#getSongsUser#0" expanded="false" />
                 <element signature="n#!!block;n#getRecordsUser#0" expanded="false" />
                 <element signature="n#!!block;n#getPlaylistsUser#0" expanded="false" />
-                <element signature="e#11366#12028#0" expanded="false" />
-                <element signature="e#12064#12148#0" expanded="false" />
+                <element signature="e#11261#11923#0" expanded="false" />
+                <element signature="e#11959#12043#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -102,9 +113,121 @@
       <file leaf-file-name="sw.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/sw.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+            <state relative-caret-position="-187">
+              <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jquery.mobile.1.4.5.min.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/themes/jquery.mobile.1.4.5.min.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="577">
+              <caret line="2" column="207327" selection-start-line="2" selection-start-column="207327" selection-end-line="2" selection-end-column="207327" />
+              <folding>
+                <element signature="e#177#986#2" expanded="true" />
+                <element signature="e#1025#1983#2" expanded="true" />
+                <element signature="e#2026#3051#2" expanded="true" />
+                <element signature="e#3094#4119#2" expanded="true" />
+                <element signature="e#4160#5173#2" expanded="true" />
+                <element signature="e#5214#6228#2" expanded="true" />
+                <element signature="e#6269#7282#2" expanded="true" />
+                <element signature="e#7325#8350#2" expanded="true" />
+                <element signature="e#8393#9418#2" expanded="true" />
+                <element signature="e#9459#10473#2" expanded="true" />
+                <element signature="e#10512#11940#2" expanded="true" />
+                <element signature="e#11978#12785#2" expanded="true" />
+                <element signature="e#12823#13879#2" expanded="true" />
+                <element signature="e#13920#15273#2" expanded="true" />
+                <element signature="e#15315#16643#2" expanded="true" />
+                <element signature="e#16683#17855#2" expanded="true" />
+                <element signature="e#17896#18700#2" expanded="true" />
+                <element signature="e#18741#19546#2" expanded="true" />
+                <element signature="e#19587#20391#2" expanded="true" />
+                <element signature="e#20432#21237#2" expanded="true" />
+                <element signature="e#21325#22128#2" expanded="true" />
+                <element signature="e#22167#23421#2" expanded="true" />
+                <element signature="e#23460#24507#2" expanded="true" />
+                <element signature="e#24548#25638#2" expanded="true" />
+                <element signature="e#25678#26739#2" expanded="true" />
+                <element signature="e#26777#27794#2" expanded="true" />
+                <element signature="e#27831#28831#2" expanded="true" />
+                <element signature="e#28874#30432#2" expanded="true" />
+                <element signature="e#30473#31275#2" expanded="true" />
+                <element signature="e#31313#34344#2" expanded="true" />
+                <element signature="e#34382#36568#2" expanded="true" />
+                <element signature="e#36607#37451#2" expanded="true" />
+                <element signature="e#37489#38539#2" expanded="true" />
+                <element signature="e#38577#39742#2" expanded="true" />
+                <element signature="e#39784#40698#2" expanded="true" />
+                <element signature="e#40736#41725#2" expanded="true" />
+                <element signature="e#41763#42531#2" expanded="true" />
+                <element signature="e#42570#43315#2" expanded="true" />
+                <element signature="e#43359#44107#2" expanded="true" />
+                <element signature="e#44146#45574#2" expanded="true" />
+                <element signature="e#45612#46667#2" expanded="true" />
+                <element signature="e#46706#48154#2" expanded="true" />
+                <element signature="e#48195#49221#2" expanded="true" />
+                <element signature="e#49262#50604#2" expanded="true" />
+                <element signature="e#50644#51720#2" expanded="true" />
+                <element signature="e#51758#52813#2" expanded="true" />
+                <element signature="e#52851#53659#2" expanded="true" />
+                <element signature="e#53696#54760#2" expanded="true" />
+                <element signature="e#54798#56332#2" expanded="true" />
+                <element signature="e#56371#57242#2" expanded="true" />
+                <element signature="e#57329#58102#2" expanded="true" />
+                <element signature="e#58187#59109#2" expanded="true" />
+                <element signature="e#59198#60189#2" expanded="true" />
+                <element signature="e#60282#61285#2" expanded="true" />
+                <element signature="e#61378#62381#2" expanded="true" />
+                <element signature="e#62470#63462#2" expanded="true" />
+                <element signature="e#63551#64542#2" expanded="true" />
+                <element signature="e#64631#65623#2" expanded="true" />
+                <element signature="e#65716#66719#2" expanded="true" />
+                <element signature="e#66812#67815#2" expanded="true" />
+                <element signature="e#67900#69306#2" expanded="true" />
+                <element signature="e#69389#70160#2" expanded="true" />
+                <element signature="e#70243#71263#2" expanded="true" />
+                <element signature="e#71352#72666#2" expanded="true" />
+                <element signature="e#72757#74063#2" expanded="true" />
+                <element signature="e#74150#75283#2" expanded="true" />
+                <element signature="e#75372#76140#2" expanded="true" />
+                <element signature="e#76229#76998#2" expanded="true" />
+                <element signature="e#77087#77855#2" expanded="true" />
+                <element signature="e#77944#78713#2" expanded="true" />
+                <element signature="e#78891#79658#2" expanded="true" />
+                <element signature="e#79743#80975#2" expanded="true" />
+                <element signature="e#81060#82071#2" expanded="true" />
+                <element signature="e#82160#83228#2" expanded="true" />
+                <element signature="e#83315#84354#2" expanded="true" />
+                <element signature="e#84437#85432#2" expanded="true" />
+                <element signature="e#85513#86477#2" expanded="true" />
+                <element signature="e#86570#88106#2" expanded="true" />
+                <element signature="e#88195#88961#2" expanded="true" />
+                <element signature="e#89044#92053#2" expanded="true" />
+                <element signature="e#92136#94300#2" expanded="true" />
+                <element signature="e#94385#95196#2" expanded="true" />
+                <element signature="e#95279#96307#2" expanded="true" />
+                <element signature="e#96390#97533#2" expanded="true" />
+                <element signature="e#97624#98502#2" expanded="true" />
+                <element signature="e#98585#99535#2" expanded="true" />
+                <element signature="e#99618#100350#2" expanded="true" />
+                <element signature="e#100435#101144#2" expanded="true" />
+                <element signature="e#101239#101951#2" expanded="true" />
+                <element signature="e#102036#103413#2" expanded="true" />
+                <element signature="e#103496#104529#2" expanded="true" />
+                <element signature="e#104614#106026#2" expanded="true" />
+                <element signature="e#106115#107102#2" expanded="true" />
+                <element signature="e#107191#108511#2" expanded="true" />
+                <element signature="e#108621#109661#2" expanded="true" />
+                <element signature="e#109744#110763#2" expanded="true" />
+                <element signature="e#110846#111618#2" expanded="true" />
+                <element signature="e#111699#112741#2" expanded="true" />
+                <element signature="e#112824#114336#2" expanded="true" />
+                <element signature="e#114421#115253#2" expanded="true" />
+                <element signature="e#176153#176242#2" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -153,8 +276,8 @@
         <option value="$PROJECT_DIR$/public/assets/jquery/jquery.mobile.1.4.5.min.js" />
         <option value="$PROJECT_DIR$/public/assets/css/jquery.mobile.1.4.5.min.css" />
         <option value="$PROJECT_DIR$/public/Offline.html" />
-        <option value="$PROJECT_DIR$/public/sw.js" />
         <option value="$PROJECT_DIR$/public/Index.html" />
+        <option value="$PROJECT_DIR$/public/sw.js" />
         <option value="$PROJECT_DIR$/public/assets/js/script.js" />
       </list>
     </option>
@@ -200,7 +323,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -247,51 +370,7 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="themes" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicPlayer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicPlayer" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicPlayer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicPlayer" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jquery" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -317,27 +396,9 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicPlayer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicPlayer" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -351,16 +412,16 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Renzie\Desktop\MusicPlayer\public\images" />
-      <recent name="C:\Users\Renzie\Desktop\MusicPlayer" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Renzie\Desktop\MusicPlayer\public\themes" />
       <recent name="C:\Users\Renzie\Desktop\MusicPlayer\public" />
       <recent name="C:\Users\Renzie\Desktop\MusicPlayer" />
       <recent name="C:\Users\Renzie\Desktop\MusicPlayer\public\images\icons" />
       <recent name="C:\Users\Renzie\Desktop\MusicPlayer\public\images" />
-      <recent name="C:\Users\Renzie\Desktop\MusicPlayer\public\icons\png_images" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Renzie\Desktop\MusicPlayer\public\images" />
+      <recent name="C:\Users\Renzie\Desktop\MusicPlayer" />
     </key>
   </component>
   <component name="RunManager">
@@ -456,12 +517,13 @@
       <workItem from="1494753638808" duration="12389000" />
       <workItem from="1494780605363" duration="4126000" />
       <workItem from="1494784936248" duration="242000" />
-      <workItem from="1494842932544" duration="14430000" />
+      <workItem from="1494842932544" duration="15023000" />
+      <workItem from="1494935127482" duration="6041000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="141050000" />
+    <option name="totallyTimeSpent" value="147684000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -473,7 +535,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1881663" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -514,13 +576,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/sw.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="13" column="52" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/music.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -785,14 +840,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/css/screen.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manifest.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -810,9 +857,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/css/jquery.mobile.1.4.5.min.css">
+    <entry file="file://$PROJECT_DIR$/public/Playlist.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
+        <state relative-caret-position="476">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/Offline.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/ListOfPlaylists.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="56" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/css/screen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/themes/MusicPlayer.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/themes/jquery.mobile.1.4.5.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="577">
           <caret line="2" column="207327" selection-start-line="2" selection-start-column="207327" selection-end-line="2" selection-end-column="207327" />
           <folding>
             <element signature="e#177#986#2" expanded="true" />
@@ -920,61 +1007,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/Playlist.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/Offline.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/sw.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/ListOfPlaylists.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="56" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/Index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+        <state relative-caret-position="-187">
+          <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
-          <caret line="509" column="70" selection-start-line="509" selection-start-column="70" selection-end-line="509" selection-end-column="70" />
+        <state relative-caret-position="476">
+          <caret line="453" column="122" selection-start-line="453" selection-start-column="122" selection-end-line="453" selection-end-column="122" />
           <folding>
-            <element signature="e#662#1134#0" expanded="false" />
-            <element signature="e#1358#1747#0" expanded="false" />
-            <element signature="e#4606#4809#0" expanded="false" />
+            <element signature="e#549#1021#0" expanded="false" />
+            <element signature="e#1245#1634#0" expanded="false" />
+            <element signature="e#4493#4696#0" expanded="false" />
             <element signature="n#!!block;n#getID#0" expanded="false" />
             <element signature="n#!!block;n#addSongToPlaylist#0" expanded="false" />
             <element signature="n#!!block;n#getSongsUser#0" expanded="false" />
             <element signature="n#!!block;n#getRecordsUser#0" expanded="false" />
             <element signature="n#!!block;n#getPlaylistsUser#0" expanded="false" />
-            <element signature="e#11366#12028#0" expanded="false" />
-            <element signature="e#12064#12148#0" expanded="false" />
+            <element signature="e#11261#11923#0" expanded="false" />
+            <element signature="e#11959#12043#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/Index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+          <folding>
+            <element signature="n#style#0;n#ul#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

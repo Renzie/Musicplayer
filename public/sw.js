@@ -9,11 +9,11 @@ var cacheFiles = [
     '/themes/jquery.mobile.icons.min.css',
     '/assets/css/reset.css',
     '/assets/css/screen.css',
-    '/themes/MusicPlayer.min.css',
+    '/themes/',
     '/Offline.html',
     '/assets/jquery/jquery-2.1.4.min.js',
     '/assets/jquery/jquery.mobile.1.4.5.min.js',
-    '/assets/css/jquery.mobile.1.4.5.min.css'
+
 ];
 
 

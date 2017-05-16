@@ -3,9 +3,8 @@
  */
 /*  TODO : - API IMPLEMENTATION
  - PUSH NOTIFICATIONS
- - MATTHIAS ZEN STUK VAN CCCP
+ - LOGIN
  - MANIFEST
- - DEFTIGE CODE (NON-EXISTENT IN ONS WOORDENBOEK) AKA PROMISES, FETCH, SERVICE WORKERS, ...
  - REST VAN DE UI AFWERKEN
  - ....
 
@@ -179,7 +178,7 @@ var audioPlayer = {
     },
     selectSong: function (e) {
         e.preventDefault();
-        var songId = $(this).attr("data-id");
+        var songId = $(this).parent().attr("data-id");
         audioPlayer.setSong(songId);
         audioPlayer.playSong();
     },
@@ -348,7 +347,6 @@ var userFunctions = {
         })
     },
     addUser: function () {
-
         var password = sanatize($("#passwordRegister"));
         var passwordHash = require('./lib/password-hash');
         var hashedPassword = passwordHash.generate(password);
@@ -428,13 +426,15 @@ var audioplayerUI = {
         playlistUI.children().remove();
         for (var i = 0; i < currentPlaylist.songs.length; i++) {
             var html = "<li data-id='" + currentPlaylist.songs[i].id + "' class='song ui-li-has-alt ui-li-has-thumb ui-first-child ui-last-child'><a class='playsong ui-btn' href='#'>" +
-                "<img src='../../images/covers/defaultcover.jpg' > " +
+                "<img src='../../images/covers/defaultcover.jpg' />" +
                 "<h2>" + currentPlaylist.songs[i].title + "</h2>" +
                 "<p>" + currentPlaylist.songs[i].author + "</p>" +
-                "</a> <a class='ui-btn ui-btn-icon-notext ui-icon-gear' href='' data-rel='popup' data-position-to='window' data-transition='pop'></a></li>"
+                "</a> <a class='optionssong ui-btn ui-btn-icon-notext ui-icon-gear' href='#popupoptions' data-position-to='origin' data-rel='popup' data-transition='slideup'></a></li>";
             playlistUI.append(html);
         }
-    }
+    },
+
+
 };
 
 
@@ -449,9 +449,9 @@ var mainUI = {
         $(".settings").off().on('click', mainUI.goToSettings);
         $(".register").off().on('click', mainUI.goToRegister);
         $("#autoplay").change(audioPlayer.setAutoplay);
-        $("[data-name='songs'] [data-role='listview'] ").off().on('click', '.song', audioPlayer.selectSong);
+        $("[data-name='songs'] [data-role='listview'] ").off().on('click', '.playsong', audioPlayer.selectSong);
         $(".autoplay").off().on('click', audioPlayer.setAutoplay);
-        $("[data-name='playlists'] [data-role='listview']").off().on("click", '.selectplaylist', audioPlayer.setPlaylist)
+        $("[data-name='playlists'] [data-role='listview']").off().on("click", '.selectplaylist', audioPlayer.setPlaylist);
     },
 
     loadContent: function (dataname) {
@@ -498,7 +498,11 @@ var mainUI = {
         setTimeout(function () {
             $("[data-role='popup']").popup("close");
         }, 1000)
-    }
+    },
+    /*showSongOptions : function () {
+        $("[data-role='popup'] .message").html("derp");
+        $("[data-role='popup']").popup("open");
+        }*/
 };
 
 var playlistsUI = {
