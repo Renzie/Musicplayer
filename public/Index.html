@@ -18,10 +18,10 @@
     <header data-tap-toggle="false" data-role="header" data-theme="c" data-position="fixed">
         <h1 id="songname" align="center">No song selected</h1>
         <section class="ui-bar-b">
-            <h2 align="center" data-theme="b">Playlist 1</h2>
+            <h2 align="center" data-theme="c">Playlist 1</h2>
         </section>
     </header>
-    <div data-role="popup" data-theme="b" id="popupoptions">
+    <div data-role="popup" data-theme="c" id="popupoptions">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider">Choose an action</li>
             <li><a href="#">View details</a></li>
@@ -32,13 +32,13 @@
     </div>
 
 
-    <div data-name="home"  data-role="main" data-theme="b">
+    <div data-name="home"  data-role="main" data-theme="c">
         <nav data-theme="c" data-role="navbar" >
             <ul >
                 <li><a href="#" class="playlists"   data-iconpos="top" data-icon="bullets">My playlists</a> </li>
                 <li><a href="#" data-iconpos="top" data-icon="search">Search</a></li>
+                <li><a href="#" class="mysongs" data-iconpos="top" data-icon="music">My Songs</a></li>
                 <li><a href="#" data-iconpos="top"  data-icon="gear">Settings</a></li>
-                <li><a href="#" data-iconpos="top" data-icon="gear">Back to playlist</a></li>
                 <li><a href="#" data-iconpos="top" data-icon="gear">Recordings</a></li>
                 <li><a href="#"  data-iconpos="top" data-icon="home">Logout</a></li>
             </ul>
@@ -46,20 +46,20 @@
     </div>
 
 
-    <div class="hide" data-name="playlists" data-role="main" data-theme="b" data-position="relative">
+    <div class="hide" data-name="playlists" data-role="main" data-theme="c" data-position="relative">
         <ul data-name="content" data-role="listview" data-split-icon="gear">
             <!-- hier zijn de playlists -->
         </ul>
     </div>
 
-    <div class="hide" data-name="songs" data-defaults="true" data-role="main" data-theme="b" data-position="relative">
+    <div class="hide" data-name="songs" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
         <ul data-name="content" class="currentPlaylist" data-role="listview" data-split-icon="gear">
 
 
         </ul>
     </div>
 
-    <div class="hide" data-name="login" data-defaults="true" data-role="main" data-theme="b" data-position="relative">
+    <div class="hide" data-name="login" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
         <form>
             <fieldset>
                 <label for="username">Username</label>
@@ -74,7 +74,7 @@
         </form>
     </div>
 
-    <div class="hide" data-name="register" data-defaults="true" data-role="main" data-theme="b" data-position="relative">
+    <div class="hide" data-name="register" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
         <form>
             <fieldset>
                 <label for="regusername">Username</label>
@@ -97,7 +97,7 @@
 
 
 
-    <div class="hide" data-name="settings" data-defaults="true" data-role="main" data-theme="b" data-position="relative">
+    <div class="hide" data-name="settings" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
         <input type="checkbox" name="autoplay" id="autoplay" >
         <label for="autoplay">Autoplay</label>
 
@@ -106,7 +106,7 @@
     </div>
 
 
-    <footer data-tap-toggle="false" data-role="footer" data-theme="b" data-position="fixed">
+    <footer data-tap-toggle="false" data-role="footer" data-theme="c" data-position="fixed">
         <div class="progressbar" data-role="pgrbar">
             <div class="progress"></div>
         </div>

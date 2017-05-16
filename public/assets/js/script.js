@@ -1,15 +1,17 @@
 /**
  * Created by Renzie on 16/02/2016.
  */
-/*  TODO : - API IMPLEMENTATION
+/*  TODO :
  - PUSH NOTIFICATIONS
  - LOGIN
- - MANIFEST
  - REST VAN DE UI AFWERKEN
+ - NIEUWE PLAYLISTS AANMAKEN
  - ....
 
  DONE : - MUZIEKSPELER (PLAY - PAUSE, NEXTSONG, SONG ON CLICK, )
- - PROGRESS BAR VOOR MUZIEK
+        - PROGRESS BAR VOOR MUZIEK
+        - MANIFEST
+
  */
 
 'use strict';
@@ -21,10 +23,25 @@ var getPlaylists = function () {
     })
 };
 
+var getSongs = function () {
+    return $.get("songs/").then(function (data) {
+        currentPlaylist.songs = data;
+        console.log(currentPlaylist);
+        mainUI.goToSongs();
+        audioplayerUI.fillPlaylistUI();
+    }, function (error) {
+        console.log(error);
+    });
+};
+
 var getUser = function (userid) {
     return $.get("users/" + userid);
 };
 
+function Playlist(name) {
+    this.name = name;
+    this.songs = [];
+}
 
 /*function loadSoundCloud(url) {
  return new Promise(function (resolve, reject) {
@@ -92,7 +109,7 @@ var registerServiceWorker = function () { //voor pushnotification
 
 /* AUDIOPLAYER SETTINGS */ //DONE
 var currentSong;
-var currentPlaylist;
+var currentPlaylist = new Playlist("und");
 var currentUser;
 var audio = new Audio();
 
@@ -121,13 +138,14 @@ var setAudioEventListeners = function () {
         $(".progress").css("width", width + "vw");
 
     });
-}
-// dit zorgt voor de autoplay
-
+};
 
 /* BACK-END AUDIO */
 var audioPlayer = {
     autoplay: false,
+    goToSongs : function () {
+        currentPlaylist = getSongs();
+    },
     setAutoplay: function () {
         audioPlayer.autoplay = !!$(this).is(':checked');
     },
@@ -185,7 +203,8 @@ var audioPlayer = {
     setPlaylist: function () {
         var playlistid = $(this).parent().attr('data-id');
         return getUser(currentUser.id).then(function (data) {
-            currentPlaylist = data.playlists[playlistid - 1];
+            currentPlaylist.name = data.playlists[playlistid - 1].name;
+            currentPlaylist.songs = data.playlists[playlistid - 1].songs;
         }).then(function () {
             mainUI.goToSongs();
         }, function (error) {
@@ -452,6 +471,7 @@ var mainUI = {
         $("[data-name='songs'] [data-role='listview'] ").off().on('click', '.playsong', audioPlayer.selectSong);
         $(".autoplay").off().on('click', audioPlayer.setAutoplay);
         $("[data-name='playlists'] [data-role='listview']").off().on("click", '.selectplaylist', audioPlayer.setPlaylist);
+        $(".mysongs").off().on("click", getSongs)
     },
 
     loadContent: function (dataname) {
