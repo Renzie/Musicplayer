@@ -285,11 +285,11 @@ function getPlaylistsUser(userId) {
 }
 
 function sanatize(text) {
-    var string = text.replace('\"', '').replace('\'', '').replace('\,', '').replace('\\', '');
-    return string;
+    return text.replace('\"', '').replace('\'', '').replace('\,', '').replace('\\', '');
 }
-//setUser as default for testing and stuff
+
 var userFunctions = {
+    //setUser as default for testing and stuff
     setUser: function () {
         if (currentUser == null) {
             return getUser(1).then(function (data) {
@@ -366,14 +366,17 @@ var userFunctions = {
         })
     },
     addUser: function () {
-        var password = sanatize($("#passwordRegister"));
-        var passwordHash = require('./lib/password-hash');
-        var hashedPassword = passwordHash.generate(password);
+        var password = sanatize($("#regpassword").val());
+        /*var passwordHash = require('password-hash');
+        var hashedPassword = passwordHash.generate(password);*/
+
+        var hashedPassword  = password.hashCode();
+        console.log(hashedPassword);
         var User = {
-            "id": userFunctions.checkIdUser(),
-            "name": sanatize($("#name")),
-            "email": sanatize($("#email")),
-            "nickname": sanatize($("#usernameRegister")),
+            //"id": userFunctions.checkIdUser(),
+            "name": sanatize($("#regusername").val()),
+            "email": sanatize($("#regemail").val()),
+            "nickname": sanatize($("#regnickname").val()),
             "password": hashedPassword,
             "login": 0,
             "songs": {
@@ -399,14 +402,32 @@ var userFunctions = {
             }
         };
         $.ajax({
-            url: "/user",
+            url: "/users",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(User),
             dataType: "json"
         })
+    },
+
+    makeNewPlaylist : function () {
+        $.post("/users" , function (data) {
+
+        })
     }
 };
+
+String.prototype.hashCode = function() {
+    var hash = 0, i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr   = this.charCodeAt(i);
+        hash  = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+};
+
 /* FRONT END AUDIO */ //DONE
 var audioplayerUI = {
     setDuration: function () {
@@ -448,9 +469,11 @@ var audioplayerUI = {
                 "<img src='../../images/covers/defaultcover.jpg' />" +
                 "<h2>" + currentPlaylist.songs[i].title + "</h2>" +
                 "<p>" + currentPlaylist.songs[i].author + "</p>" +
-                "</a> <a class='optionssong ui-btn ui-btn-icon-notext ui-icon-gear' href='#popupoptions' data-position-to='origin' data-rel='popup' data-transition='slideup'></a></li>";
+                "</a> <a class='optionssong ui-btn ui-btn-icon-notext ui-icon-gear' href='#songoptions' data-position-to='origin' data-rel='popup' data-transition='slideup'></a></li>";
             playlistUI.append(html);
         }
+
+
     },
 
 
@@ -471,7 +494,10 @@ var mainUI = {
         $("[data-name='songs'] [data-role='listview'] ").off().on('click', '.playsong', audioPlayer.selectSong);
         $(".autoplay").off().on('click', audioPlayer.setAutoplay);
         $("[data-name='playlists'] [data-role='listview']").off().on("click", '.selectplaylist', audioPlayer.setPlaylist);
-        $(".mysongs").off().on("click", getSongs)
+        $(".mysongs").off().on("click", getSongs);
+        $("#login").off().on("click", userFunctions.loginUser);
+        $("#register").off().on("submit", userFunctions.addUser);
+        $("#makeplaylist").off().on("click", userFunctions.makeNewPlaylist);
     },
 
     loadContent: function (dataname) {
@@ -513,16 +539,15 @@ var mainUI = {
         audio.currentTime = clickedValue * audio.duration
     },
     showMessage : function (text) {
-        $("[data-role='popup'] .message").html(text);
-        $("[data-role='popup']").popup("open");
-        setTimeout(function () {
-            $("[data-role='popup']").popup("close");
-        }, 1000)
+        $("#messagepopup").html(text);
+        $("#messagepopup").popup("open");
     },
-    /*showSongOptions : function () {
-        $("[data-role='popup'] .message").html("derp");
-        $("[data-role='popup']").popup("open");
-        }*/
+
+    showPlaylistAddSuccess : function (namePlaylist) {
+        mainUI.showMessage(namePlaylist + " has been added successfully");
+    }
+
+
 };
 
 var playlistsUI = {
@@ -537,6 +562,11 @@ var playlistsUI = {
                 "</a> <a class='ui-btn ui-btn-icon-notext ui-icon-gear' href='' data-rel='popup' data-position-to='window' data-transition='pop'></a></li>";
             playlists.append(html);
         }
+        playlists.append("<li class=' ui-li-has-thumb ui-first-child ui-last-child'>" +
+            "<a class='playsong ui-btn' href='#makeplaylistform' data-position-to='center' data-rel='popup' data-transition='popup'>" +
+            "<img src='../../images/covers/defaultcover.jpg' />" +
+            "<h2> Add new Playlist </h2>" +
+            "</a></li>");
     }
 };
 

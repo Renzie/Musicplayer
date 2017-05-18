@@ -21,7 +21,14 @@
             <h2 align="center" data-theme="c">Playlist 1</h2>
         </section>
     </header>
-    <div data-role="popup" data-theme="c" id="popupoptions">
+
+    <!-- Popups -->
+    <div data-role="popup" data-theme="c" id="messagepopup">
+        <p></p>
+        <a href="#" data-rel="back" class="ui-btn"></a>
+    </div>
+
+    <div data-role="popup" data-theme="c" id="songoptions">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider">Choose an action</li>
             <li><a href="#">View details</a></li>
@@ -29,6 +36,20 @@
             <li><a href="#">Disable</a></li>
             <li><a href="#">Delete</a></li>
         </ul>
+    </div>
+
+    <div data-role="popup" data-theme="d" id="makeplaylistform">
+        <form>
+            <fieldset style="padding: 10px 20px;">
+                <h3>New Playlist</h3>
+                <label for="playlistname" class="ui-hidden-accessible">Name:</label>
+                <input type="text" placeholder="Name" id="playlistname"/>
+
+                <input value="create" type="submit" class="makeplaylist ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-check">
+            </fieldset>
+        </form>
+
+
     </div>
 
 
@@ -49,6 +70,7 @@
     <div class="hide" data-name="playlists" data-role="main" data-theme="c" data-position="relative">
         <ul data-name="content" data-role="listview" data-split-icon="gear">
             <!-- hier zijn de playlists -->
+
         </ul>
     </div>
 
@@ -57,41 +79,6 @@
 
 
         </ul>
-    </div>
-
-    <div class="hide" data-name="login" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
-        <form>
-            <fieldset>
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" value="">
-
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" value="">
-
-                <input class="ui-mini" data-theme="c" type="submit" value="Login">
-                <input class="register" data-theme="c" type="submit" value="Register">
-            </fieldset>
-        </form>
-    </div>
-
-    <div class="hide" data-name="register" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
-        <form>
-            <fieldset>
-                <label for="regusername">Username</label>
-                <input type="text" name="username" id="regusername" value="">
-
-                <label for="regpassword">Password</label>
-                <input type="password" name="password" id="regpassword" value="">
-
-                <label for="regemail">Email</label>
-                <input type="email" name="regemail" id="regemail" placeholder="noob@stommenaap.com">
-
-                <label for="regnickname">Email</label>
-                <input type="text" name="regnickname" id="regnickname" placeholder="XxxPussySlayer69xxX">
-
-                <input data-theme="c" type="submit" value="Register">
-            </fieldset>
-        </form>
     </div>
 
 

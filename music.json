@@ -37,7 +37,6 @@
       "mp3": "Led Zeppelin - Stairway to Heaven .mp3"
     }
   ],
-
   "users": [
     {
       "id": 1,
@@ -102,13 +101,120 @@
           ]
         }
       ],
-      "records": {
-      }
+      "records": {}
+    },
+    {
+      "name": "test",
+      "email": "test@test.com",
+      "nickname": "test",
+      "password": 3556498,
+      "login": 0,
+      "songs": {},
+      "records": {},
+      "playlists": {},
+      "id": 2
+    },
+    {
+      "name": "test",
+      "email": "test@test.com",
+      "nickname": "test",
+      "password": 3556498,
+      "login": 0,
+      "songs": {},
+      "records": {},
+      "playlists": {},
+      "id": 3
+    },
+    {
+      "name": "test",
+      "email": "test",
+      "nickname": "test",
+      "password": 3556498,
+      "login": 0,
+      "songs": {},
+      "records": {},
+      "playlists": {},
+      "id": 4
+    },
+    {
+      "name": "test",
+      "email": "test@test.com",
+      "nickname": "test",
+      "password": 3556498,
+      "login": 0,
+      "songs": {},
+      "records": {},
+      "playlists": {},
+      "id": 5
+    },
+    {
+      "name": "test",
+      "email": "test",
+      "nickname": "test",
+      "password": -1422501792,
+      "login": 0,
+      "songs": {},
+      "records": {},
+      "playlists": {},
+      "id": 6
+    },
+    {
+      "name": "test",
+      "email": "test@test.test",
+      "nickname": "test",
+      "password": -1422501792,
+      "login": 0,
+      "songs": {},
+      "records": {},
+      "playlists": {},
+      "id": 7
+    },
+    {
+      "name": "test",
+      "email": "test@test.com",
+      "nickname": "test",
+      "password": 3556498,
+      "login": 0,
+      "songs": {},
+      "records": {},
+      "playlists": {},
+      "id": 8
+    },
+    {
+      "name": "test",
+      "email": "test@test.com",
+      "nickname": "test",
+      "password": 3556498,
+      "login": 0,
+      "songs": {},
+      "records": {},
+      "playlists": {},
+      "id": 9
+    },
+    {
+      "username": "test",
+      "password": "test",
+      "regemail": "test@test.com",
+      "regnickname": "test",
+      "id": 10
+    },
+    {
+      "name": "test",
+      "email": "test@test.com",
+      "nickname": "test",
+      "password": 3556498,
+      "login": 0,
+      "songs": {},
+      "records": {},
+      "playlists": {},
+      "id": 11
+    },
+    {
+      "username": "test",
+      "password": "test",
+      "regemail": "test@test.com",
+      "regnickname": "test",
+      "id": 12
     }
   ]
 }
-
-
-
-
-
