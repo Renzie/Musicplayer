@@ -410,10 +410,30 @@ var userFunctions = {
         })
     },
 
-    makeNewPlaylist : function () {
-        $.post("/users" , function (data) {
+    makeNewPlaylist : function (e) {
+        e.preventDefault();
+        var playlistname = $("#playlistname").val();
+        var playlist = {
+            name : playlistname,
+            songs : [],
+            userId : JSON.parse(currentUser.id)
+        };
 
-        })
+        $.ajax({
+            url: "/playlists?userId=" + currentUser.id,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(playlist),
+            dataType: "json"
+        }).then(function (data) {
+            $("#makeplaylistform").off().on({
+                popupafterclose: function () {
+                    mainUI.showPlaylistAddSuccess(data.name);
+                }
+            })
+        });
+        $("#makeplaylistform").popup("close")
+
     }
 };
 
@@ -539,12 +559,15 @@ var mainUI = {
         audio.currentTime = clickedValue * audio.duration
     },
     showMessage : function (text) {
-        $("#messagepopup").html(text);
+        $("#messagepopup p").html(text);
         $("#messagepopup").popup("open");
     },
 
     showPlaylistAddSuccess : function (namePlaylist) {
-        mainUI.showMessage(namePlaylist + " has been added successfully");
+        setTimeout(function () {
+            mainUI.showMessage(namePlaylist + " has been added successfully");
+        }, 100);
+
     }
 
 
@@ -563,7 +586,7 @@ var playlistsUI = {
             playlists.append(html);
         }
         playlists.append("<li class=' ui-li-has-thumb ui-first-child ui-last-child'>" +
-            "<a class='playsong ui-btn' href='#makeplaylistform' data-position-to='center' data-rel='popup' data-transition='popup'>" +
+            "<a class='playsong ui-btn' href='#makeplaylistform' data-position-to='center' data-rel='popup' data-transition='pop'>" +
             "<img src='../../images/covers/defaultcover.jpg' />" +
             "<h2> Add new Playlist </h2>" +
             "</a></li>");

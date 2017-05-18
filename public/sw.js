@@ -85,6 +85,7 @@ function fetchOffline(e) {
 function fetchOnline(e) {
     e.respondWith(
         fetch(e.request).then(function (fResponse, reject) {
+
                 return caches.open(cacheName).then(function (cache) {
                     if (!fResponse.ok) {
                         return cache.match(e.request);
@@ -93,6 +94,10 @@ function fetchOnline(e) {
                         return fResponse;
                     }
                 })
+
+            /*if(!response || response.status !== 201 || response.type !== 'basic') {
+                return response;
+            }*/
             }
         ));
 }

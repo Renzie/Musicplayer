@@ -23,9 +23,9 @@
     </header>
 
     <!-- Popups -->
-    <div data-role="popup" data-theme="c" id="messagepopup">
-        <p></p>
-        <a href="#" data-rel="back" class="ui-btn"></a>
+    <div class="ui-content" data-role="popup" data-theme="c" id="messagepopup">
+        <p>derp</p>
+        <a href="#" data-rel="back" class="ui-btn">OK</a>
     </div>
 
     <div data-role="popup" data-theme="c" id="songoptions">
@@ -45,7 +45,7 @@
                 <label for="playlistname" class="ui-hidden-accessible">Name:</label>
                 <input type="text" placeholder="Name" id="playlistname"/>
 
-                <input value="create" type="submit" class="makeplaylist ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-check">
+                <input data-rel="popup" value="create" type="submit" id="makeplaylist" class=" ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-check">
             </fieldset>
         </form>
 
