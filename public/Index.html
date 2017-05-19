@@ -23,18 +23,23 @@
     </header>
 
     <!-- Popups -->
-    <div class="ui-content" data-role="popup" data-theme="c" id="messagepopup">
-        <p>derp</p>
+    <div class="ui-content" data-role="popup" data-transition="pop" data-theme="c" id="messagepopup">
+        <p></p>
         <a href="#" data-rel="back" class="ui-btn">OK</a>
     </div>
 
     <div data-role="popup" data-theme="c" id="songoptions">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider">Choose an action</li>
-            <li><a href="#">View details</a></li>
-            <li><a href="#">Edit</a></li>
-            <li><a href="#">Disable</a></li>
+            <li><a class="showplaylists" href="#">Add to playlist</a></li>
             <li><a href="#">Delete</a></li>
+        </ul>
+    </div>
+
+    <div data-role="popup" data-transition="pop" data-theme="c" id="selectplaylist">
+
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+
         </ul>
     </div>
 

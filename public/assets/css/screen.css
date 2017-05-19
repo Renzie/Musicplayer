@@ -46,13 +46,13 @@ footer{
 }
 
 .ytp-play-button {
-
     fill: #fff;
     opacity: 1;
 }
 
 .ytp-play-button:hover {
     cursor: pointer;
+
     opacity: 1;
 }
 

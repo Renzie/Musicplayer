@@ -9,12 +9,52 @@
  - ....
 
  DONE : - MUZIEKSPELER (PLAY - PAUSE, NEXTSONG, SONG ON CLICK, )
-        - PROGRESS BAR VOOR MUZIEK
-        - MANIFEST
+ - PROGRESS BAR VOOR MUZIEK
+ - MANIFEST
 
  */
 
 'use strict';
+var CRUD = {
+    GET: function (url) {
+        return $.get(url);
+    },
+
+// foreign keys komen in stringvorm uit als ik het in de korte manier codeer
+    POST: function (url, object) {
+        return $.ajax({
+            url: "/" + url,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(object),
+            dataType: "json"
+        })
+    },
+    PATCH : function (url, object) {
+        console.log(JSON.stringify(object))
+        $.ajax({
+            url: url,
+            type: 'PATCH',
+            data: JSON.stringify(object),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                console.log(data)
+            },
+            error : function (xhr, ajaxOptions, thrownError) {
+                if(xhr.status==404) {
+                    alert(thrownError);
+                }
+            }
+
+        })
+    }
+}
+
+var getPlaylist = function (name) {
+    return CRUD.GET('/playlists?name=' + name);
+}
+
 var getPlaylists = function () {
     return getUser(currentUser.id).then(function (data) {
         playlistsUI.loadPlaylists(data.playlists);
@@ -24,7 +64,7 @@ var getPlaylists = function () {
 };
 
 var getSongs = function () {
-    return $.get("songs/").then(function (data) {
+    return CRUD.GET("/songs").then(function (data) {
         currentPlaylist.songs = data;
         console.log(currentPlaylist);
         mainUI.goToSongs();
@@ -42,6 +82,10 @@ function Playlist(name) {
     this.name = name;
     this.songs = [];
 }
+
+var getCurrentUserPlaylists = function () {
+    return CRUD.GET("playlists?userId=" + currentUser.id);
+};
 
 /*function loadSoundCloud(url) {
  return new Promise(function (resolve, reject) {
@@ -111,6 +155,7 @@ var registerServiceWorker = function () { //voor pushnotification
 var currentSong;
 var currentPlaylist = new Playlist("und");
 var currentUser;
+var currentSongId; //voor options
 var audio = new Audio();
 
 var setAudioEventListeners = function () {
@@ -143,7 +188,7 @@ var setAudioEventListeners = function () {
 /* BACK-END AUDIO */
 var audioPlayer = {
     autoplay: false,
-    goToSongs : function () {
+    goToSongs: function () {
         currentPlaylist = getSongs();
     },
     setAutoplay: function () {
@@ -225,16 +270,29 @@ function getID(user, password) {
     }
 }
 
-function addSongToPlaylist(userId, playlistId, songId) {
-    var song = {"id": songId};
 
-    $.ajax({
-        url: "/user/" + userId + "/playlists/" + playlistId + "/songs",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(song),
-        dataType: "json"
-    })
+//moet hiervoor de array editen ipv te adden
+function addSongToPlaylist(selectedSong, selectedPlaylist) {
+    console.log(selectedPlaylist)
+    var object;
+    var text;
+    var url = "/playlists?userId=" + currentUser.id + "&id=" + selectedPlaylist.id;
+
+    CRUD.GET(url).then(function (data) {
+
+        object = data[0];
+        object.songs.push(selectedSong);
+    }).then(function () {
+        CRUD.PATCH("/playlists/" + selectedPlaylist.id, object);
+    }).then(function () {
+        text = selectedSong.title + " has been added to your playlist.";
+        mainUI.switchPopup("#selectplaylist", "#messagepopup", text, "p")
+    }); /*.catch(function () {
+        text = "unable to add song.";
+        mainUI.switchPopup("#selectplaylist", "#messagepopup", text, "p")
+    })*/
+
+
 }
 function getSongsUser(userId) {
     var users = $.get("/user");
@@ -368,9 +426,9 @@ var userFunctions = {
     addUser: function () {
         var password = sanatize($("#regpassword").val());
         /*var passwordHash = require('password-hash');
-        var hashedPassword = passwordHash.generate(password);*/
+         var hashedPassword = passwordHash.generate(password);*/
 
-        var hashedPassword  = password.hashCode();
+        var hashedPassword = password.hashCode();
         console.log(hashedPassword);
         var User = {
             //"id": userFunctions.checkIdUser(),
@@ -410,13 +468,13 @@ var userFunctions = {
         })
     },
 
-    makeNewPlaylist : function (e) {
+    makeNewPlaylist: function (e) {
         e.preventDefault();
         var playlistname = $("#playlistname").val();
         var playlist = {
-            name : playlistname,
-            songs : [],
-            userId : JSON.parse(currentUser.id)
+            name: playlistname,
+            songs: [],
+            userId: JSON.parse(currentUser.id)
         };
 
         $.ajax({
@@ -426,23 +484,20 @@ var userFunctions = {
             data: JSON.stringify(playlist),
             dataType: "json"
         }).then(function (data) {
-            $("#makeplaylistform").off().on({
-                popupafterclose: function () {
-                    mainUI.showPlaylistAddSuccess(data.name);
-                }
-            })
+            mainUI.switchPopup("#makeplaylistform", "#messagepopup", data.name + "has been added successfully", "p");
         });
-        $("#makeplaylistform").popup("close")
+        //$("#makeplaylistform").popup("close")
 
-    }
+    },
+
 };
 
-String.prototype.hashCode = function() {
+String.prototype.hashCode = function () {
     var hash = 0, i, chr;
     if (this.length === 0) return hash;
     for (i = 0; i < this.length; i++) {
-        chr   = this.charCodeAt(i);
-        hash  = ((hash << 5) - hash) + chr;
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
         hash |= 0; // Convert to 32bit integer
     }
     return hash;
@@ -492,11 +547,7 @@ var audioplayerUI = {
                 "</a> <a class='optionssong ui-btn ui-btn-icon-notext ui-icon-gear' href='#songoptions' data-position-to='origin' data-rel='popup' data-transition='slideup'></a></li>";
             playlistUI.append(html);
         }
-
-
-    },
-
-
+    }
 };
 
 
@@ -518,6 +569,10 @@ var mainUI = {
         $("#login").off().on("click", userFunctions.loginUser);
         $("#register").off().on("submit", userFunctions.addUser);
         $("#makeplaylist").off().on("click", userFunctions.makeNewPlaylist);
+        $("[data-name='songs'] [data-role='listview'] ").off().on('click', ".optionssong", mainUI.getSelectedSongId);
+        $(".showplaylists").off().on('click', playlistsUI.showPlaylists);
+        //$("#selectplaylist").off().on('click', "ul li a", addSongToPlaylist)
+
     },
 
     loadContent: function (dataname) {
@@ -558,20 +613,26 @@ var mainUI = {
         progressbar.css("width", clickedValue * audio.duration + "vw");
         audio.currentTime = clickedValue * audio.duration
     },
-    showMessage : function (text) {
-        $("#messagepopup p").html(text);
-        $("#messagepopup").popup("open");
+    showMessage: function (text, popupid, tag) {
+        $(popupid + " " + tag).append(text);
+        $(popupid).popup("open");
+    },
+    switchPopup: function (toClosePopup, toOpenPopupId, text, tag) {
+        $(toClosePopup).off().on({
+            popupafterclose: function () {
+                setTimeout(function () {
+                    mainUI.showMessage(text, toOpenPopupId, tag)
+                })
+            }
+        });
+        $(toClosePopup).popup("close");
     },
 
-    showPlaylistAddSuccess : function (namePlaylist) {
-        setTimeout(function () {
-            mainUI.showMessage(namePlaylist + " has been added successfully");
-        }, 100);
-
+    getSelectedSongId: function () {
+        currentSongId = $(this).parent().attr("data-id");
     }
-
-
 };
+
 
 var playlistsUI = {
     loadPlaylists: function (data) {
@@ -590,6 +651,35 @@ var playlistsUI = {
             "<img src='../../images/covers/defaultcover.jpg' />" +
             "<h2> Add new Playlist </h2>" +
             "</a></li>");
+    },
+    showPlaylists: function () {
+        var playlists = "", selectedSong;
+        console.log(currentSongId)
+        var list = $("#selectplaylist ul");
+
+        getCurrentUserPlaylists().then(function (data) {
+            list.children().remove();
+            for (var i = 0; i < data.length; i++) {
+                playlists += "<li><a href='#' class='ui-btn'>" + data[i].name + "</a></li>";
+            }
+        }).then(function () {
+            list.append('<li class="ui-li-divider ui-bar-inherit ui-first-child" data-role="list-divider">' +
+                'Select your playlist.</li>')
+        }).then(function () {
+            mainUI.switchPopup("#songoptions", "#selectplaylist", playlists, "ul");
+            $("#selectplaylist ul").off().on('click', "li a", function () {
+                var selectedPlaylist = $(this).text()
+                CRUD.GET("/songs/" + currentSongId).then(function (data) {
+                    selectedSong = data;
+                    getPlaylist(selectedPlaylist).then(function (data) {
+                        selectedPlaylist = data[0];
+                        console.log(selectedPlaylist)
+                    }).then(function () {
+                        addSongToPlaylist(selectedSong, selectedPlaylist)
+                    });
+                })
+            })
+        })
     }
 };
 

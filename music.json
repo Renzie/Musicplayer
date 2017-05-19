@@ -159,6 +159,12 @@
           "title": "Stairway to heaven",
           "author": "Led Zeppelin",
           "mp3": "Led Zeppelin - Stairway to Heaven .mp3"
+        },
+        {
+          "id": 1,
+          "title": "Claire de lune",
+          "author": "Claude Debussy",
+          "mp3": "CLAUDE DEBUSSY-  CLAIRE DE LUNE.mp3"
         }
       ],
       "userId": 1
