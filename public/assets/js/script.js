@@ -104,6 +104,7 @@ var getPlaylists = function () {
 };
 
 var getUser = function (userid) {
+    console.log(currentUser)
     return $.get("users/" + userid);
 };
 
@@ -380,9 +381,9 @@ function sanatize(text) {
 
 var userFunctions = {
     //setUser as default for testing and stuff
-    setUser: function () {
+    setUser: function (id) {
         if (currentUser == null) {
-            return getUser(1).then(function (data) {
+            return getUser(id).then(function (data) {
                 currentUser = data;
             }, function (error) {
                 console.log(error)
@@ -470,9 +471,7 @@ var userFunctions = {
         var password = sanatize($("#regpassword").val());
         /*var passwordHash = require('password-hash');
          var hashedPassword = passwordHash.generate(password);*/
-        console.log("test   ")
         var hashedPassword = password.hashCode();
-        console.log(hashedPassword);
         var User = {
             //"id": userFunctions.checkIdUser(),
             "name": sanatize($("#regusername").val()),
@@ -600,7 +599,6 @@ var mainUI = {
         $("[data-name='songs'] [data-role='listview'] ").on('click', "a.optionssong", mainUI.getSelectedSongId);
         $(".showplaylists").off().on('click', playlistsUI.showPlaylists);
         //$("#selectplaylist").off().on('click', "ul li a", addSongToPlaylist)
-
     },
 
     loadContent: function (dataname) {
@@ -688,6 +686,7 @@ var playlistsUI = {
             "<img src='../../images/covers/defaultcover.jpg' />" +
             "<h2> Add new Playlist </h2>" +
             "</a></li>");
+        console.log("loaded")
     },
     showPlaylists: function () {
         var playlists = "", selectedSong;
@@ -719,8 +718,11 @@ var playlistsUI = {
     }
 };
 
+$(document).on("pagechange" , function () {
+    mainUI.bindEvents();
+})
+
 $(function () {
-    userFunctions.setUser();
     mainUI.bindEvents();
     setAudioEventListeners();
     registerServiceWorker();
