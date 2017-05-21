@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MusicPlayer</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/screen.css">
+    <link rel="stylesheet" href="themes/MusicPlayer.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.1.4.5.min.css" />
+    <link rel="stylesheet" href="icons/icon-pack-custom.css"/>
+    <script src="assets/jquery/jquery-2.1.4.min.js"></script>
+    <script src="assets/jquery/jquery.mobile.1.4.5.min.js"></script>
+</head>
+<body>
+<div data-role="page" data-theme="c">
+    <header data-tap-toggle="false" data-role="header" data-theme="c" data-position="fixed">
+        <h1 id="songname" align="center">No song selected</h1>
+        <section class="ui-bar-b">
+            <h2 align="center" data-theme="c">Playlist 1</h2>
+        </section>
+    </header>
+
+    <!-- Popups -->
+    <div class="ui-content" data-role="popup" data-transition="pop" data-theme="c" id="messagepopup">
+        <p></p>
+        <a href="#" data-rel="back" class="ui-btn">OK</a>
+    </div>
+
+    <div data-role="popup" data-theme="c" id="songoptions">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider">Choose an action</li>
+            <li><a class="showplaylists" href="#">Add to playlist</a></li>
+            <li><a href="#">Delete</a></li>
+        </ul>
+    </div>
+
+    <div data-role="popup" data-transition="pop" data-theme="c" id="selectplaylist">
+
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+
+        </ul>
+    </div>
+
+    <div data-role="popup" data-theme="d" id="makeplaylistform">
+        <form>
+            <fieldset style="padding: 10px 20px;">
+                <h3>New Playlist</h3>
+                <label for="playlistname" class="ui-hidden-accessible">Name:</label>
+                <input type="text" placeholder="Name" id="playlistname"/>
+
+                <input data-rel="popup" value="create" type="submit" id="makeplaylist" class=" ui-btn ui-corner-all ui-btn-b ui-btn-icon-left ui-icon-check">
+            </fieldset>
+        </form>
+
+
+    </div>
+
+
+    <div data-name="home"  data-role="main" data-theme="c">
+        <nav data-theme="c" data-role="navbar" >
+            <ul >
+                <li><a href="#" class="playlists"   data-iconpos="top" data-icon="bullets">My playlists</a> </li>
+                <li><a href="#" data-iconpos="top" data-icon="search">Search</a></li>
+                <li><a href="#" class="mysongs" data-iconpos="top" data-icon="music">My Songs</a></li>
+                <li><a href="#" data-iconpos="top"  data-icon="gear">Settings</a></li>
+                <li><a href="#" data-iconpos="top" data-icon="gear">Recordings</a></li>
+                <li><a href="#"  data-iconpos="top" data-icon="home">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <div class="hide" data-name="playlists" data-role="main" data-theme="c" data-position="relative">
+        <ul data-name="content" data-role="listview" data-split-icon="gear">
+            <!-- hier zijn de playlists -->
+
+        </ul>
+    </div>
+
+    <div class="hide" data-name="songs" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
+        <ul data-name="content" class="currentPlaylist" data-role="listview" data-split-icon="gear">
+
+
+        </ul>
+    </div>
+
+
+
+
+    <div class="hide" data-name="settings" data-defaults="true" data-role="main" data-theme="c" data-position="relative">
+        <input type="checkbox" name="autoplay" id="autoplay" >
+        <label for="autoplay">Autoplay</label>
+
+        <input type="checkbox" name="shuffle" id="shuffle" checked="">
+        <label for="shuffle">Shuffle</label>
+    </div>
+
+
+    <footer data-tap-toggle="false" data-role="footer" data-theme="c" data-position="fixed">
+        <div class="progressbar" data-role="pgrbar">
+            <div class="progress"></div>
+        </div>
+        <section id="songsetup" data-position="fixed">
+            <!-- hier moet play / pause / skip / previous staan -->
+
+            <!--<a href="#" class="autoplay ui-nodisc-icon ui-btn ui-btn-icon-notext"></a>-->
+
+            <div class="curtime"><span class="minutes">00</span> : <span class="seconds">00</span></div>
+            <a href="#" class="step-backward ui-nodisc-icon ui-btn ui-btn-icon-notext "></a>
+            <button class="ytp-play-button ytp-button" aria-live="assertive" tabindex="32" aria-label="Pause">
+                <svg width="70%" height="10%" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <defs>
+                        <path id="ytp-12" d="M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28">
+                            <animate class="animation" begin="indefinite" attributeType="XML" attributeName="d"
+                                     fill="freeze" to="M11,10 L17,10 17,26 11,26 M20,10 L26,10 26,26 20,26"
+                                     from="M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28" dur="0.1s"
+                                     keySplines=".4 0 1 1"
+                                     repeatCount="1"></animate>
+                        </path>
+                    </defs>
+                    <use xlink:href="#ytp-12" class="ytp-svg-shadow"></use>
+                    <use xlink:href="#ytp-12" class="ytp-svg-fill"></use>
+                </svg>
+            </button>
+
+            <a href="#" class="step-forward ui-nodisc-icon ui-btn ui-btn-icon-notext"></a>
+
+            <div class="duration"><span class="minutes">0</span> : <span class="seconds">00</span> </div>
+            <!--<a href="#" class="shuffle  ui-nodisc-icon ui-btn ui-btn-icon-notext"></a>-->
+        </section>
+
+        <nav data-role="navbar">
+            <ul>
+                <li><a href="#" class="playlists" data-icon="bullets">My playlists</a></li>
+                <li><a href="#" class="home" data-icon="home">Home</a></li>
+                <li><a href="#" class="settings" data-icon="gear">Settings</a></li>
+            </ul>
+
+        </nav>
+
+
+    </footer>
+</div>
+<script async type="text/javascript" src="assets/js/script.js"></script>
+</body>
+</html>
