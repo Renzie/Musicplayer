@@ -89,6 +89,40 @@
       ],
       "userId": 1,
       "id": 3
+    },
+    {
+      "name": "Playlist",
+      "songs": [
+        2
+      ],
+      "userId": 2,
+      "id": 4
+    },
+    {
+      "name": "test",
+      "songs": [
+        2
+      ],
+      "userId": 2,
+      "id": 5
+    },
+    {
+      "name": "test",
+      "songs": [],
+      "userId": 2,
+      "id": 6
+    },
+    {
+      "name": "derp",
+      "songs": [],
+      "userId": 2,
+      "id": 7
+    },
+    {
+      "name": "test",
+      "songs": [],
+      "userId": 2,
+      "id": 8
     }
   ]
 }

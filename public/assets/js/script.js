@@ -1,17 +1,6 @@
 /**
  * Created by Renzie on 16/02/2016.
  */
-/*  TODO :
- - PUSH NOTIFICATIONS
- - LOGIN
- - ....
-
- DONE : - MUZIEKSPELER (PLAY - PAUSE, NEXTSONG, SONG ON CLICK, )
- - PROGRESS BAR VOOR MUZIEK
- - MANIFEST
- - NIEUWE PLAYLISTS AANMAKEN
- */
-
 'use strict';
 var CRUD = {
     GET: function (url) {
@@ -306,7 +295,6 @@ function getID(user, password) {
 
 //moet hiervoor de array editen ipv te adden
 function addSongToPlaylist(selectedSong, selectedPlaylist) {
-    console.log(selectedPlaylist)
     var object;
     var text;
     var url = "/playlists?userId=" + currentUser.id + "&id=" + selectedPlaylist.id;
@@ -317,6 +305,7 @@ function addSongToPlaylist(selectedSong, selectedPlaylist) {
     }).then(function () {
         CRUD.PATCH("/playlists/" + selectedPlaylist.id, object)
     }).then(function () {
+
         text = "Song has been added to your playlist.";
         mainUI.switchPopup("#selectplaylist", "#messagepopup", text, "p")
     });
@@ -457,6 +446,7 @@ var userFunctions = {
                             userFunctions.resetLoginAttempts(data[i].id);
                             userFunctions.setUser(data[i].id);
                             mainUI.goToMainPage();
+
                         } else {
                             userFunctions.incrLoginAttempts(data[i].id);
                             return false;
@@ -664,10 +654,15 @@ var mainUI = {
         $.mobile.changePage("Main.html", {
             transition: "pop",
             changeHash: false
-        })
+        });
+        window.onload = function () {
+            mainUI.bindEvents();
+            console.log("loaded")
+        }
     }
 };
 
+$.mobile.popup.prototype.options.history = false;
 
 var playlistsUI = {
     loadPlaylists: function (data) {
@@ -718,9 +713,10 @@ var playlistsUI = {
     }
 };
 
-$(document).on("pagechange" , function () {
+$(document).on("pageshow" , function () {
     mainUI.bindEvents();
-})
+    console.log("changed")
+});
 
 $(function () {
     mainUI.bindEvents();
